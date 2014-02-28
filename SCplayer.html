@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="">
+
+    <title>SoundCloud Playlist</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="offcanvas.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="http://connect.soundcloud.com/sdk.js"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">SoundCloud Playlist</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><i class="fa fa-step-backward fa-lg fa-fw playerButtons" id="backButton" onclick="back()"></i></li>
+            <li><i class=" fa fa-pause fa-lg fa-fw playerButtons" id="pauseButton" ></i></li>
+            <li><i class="fa fa-step-forward fa-lg fa-fw playerButtons" id="forwarButton"></i></li>
+          </ul>
+    <div class="navbar-form navbar-right" role="form" id="navBarLogin">
+        <div class="form-group"></div>
+          <input type="text" placeholder="User Name" class="form-control">
+        <div class="form-group"></div>
+          <input type="password" placeholder="Password" class="form-control">
+        <button class="btn btn-success" type="submit">Sign in</button>
+    </div>
+        <div class="navbar-form navbar-right" role="form" id="searchButton" style="display: none;">
+        <div class="form-group"></div>
+          <input type="text" placeholder="search" class="form-control" id="searchText">
+        <button class="btn btn-success" type="submit" onclick="search (document.getElementById('searchText').value);">Search</button>
+        <i class="fa fa-user userIcon" id="userName"></i>
+    </div>
+
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar -->
+
+    <div class="container" id="mainContent" style="display: none;">
+
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="jumbotron">
+            <div id='player'>
+              <iframe id='soundcloud_player' src="https://w.soundcloud.com/player/?url=http://api.soundcloud.com/tracks/34508873" width=80% height=150px></iframe>
+            </div> 
+          </div>
+          <div class="row" id="albumMenu"><h3>Click to add to your playlist</h3>
+            <div class="col-6 col-sm-6 col-lg-4" id="div1" >
+              <img class="coverart" id="track1-img" src="" ></img>
+              <p class="albumTitles" id="track1-title">/<p>
+            </div><!--/span-->
+            <div class="col-6 col-sm-6 col-lg-4" id="div2" >
+              <img class="coverart" id="track2-img" src=""></img>
+              <p class="albumTitles" id="track2-title">/<p>
+            </div><!--/span-->
+            <div class="col-6 col-sm-6 col-lg-4" id="div3" >
+              <img class="coverart" id="track3-img" src=""></img>
+              <p class="albumTitles" id="track3-title">/<p>
+            </div><!--/span-->
+          </div> <!-- /row -->
+          <div class="row" >
+            <div class="col-6 col-sm-6 col-lg-4" id="div4">
+              <img id="track4-img" src=""></img>
+              <p class="albumTitles" id="track4-title">/<p>
+            </div><!--/span-->
+            <div class="col-6 col-sm-6 col-lg-4" id="div5">
+              <img id="track5-img" src=""></img>
+              <p class="albumTitles" id="track5-title">/<p>
+            </div><!--/span-->
+            <div class="col-6 col-sm-6 col-lg-4" id="div6">
+              <img id="track6-img" src=""></img>
+              <p class="albumTitles" id="track6-title">/<p>
+            </div><!--/span-->
+          </div><!--/row-->
+        </div><!--/span-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+          <h4> Playlist </h4>
+            <div class="list-group">
+            <a href="#" class="list-group-item active" id="playlist1">Link</a>
+            <a href="#" class="list-group-item" id="playlist2" >Link</a>
+            <a href="#" class="list-group-item" id="playlist3" >Link</a>
+            <a href="#" class="list-group-item" id="playlist4" >Link</a>
+            <a href="#" class="list-group-item" id="playlist5" >Link</a>
+            <a href="#" class="list-group-item" id="playlist6" >Link</a>
+            <a href="#" class="list-group-item" id="playlist7" >Link</a>
+            <a href="#" class="list-group-item" id="playlist8" >Link</a>
+            <a href="#" class="list-group-item" id="playlist9">Link</a>
+            <a href="#" class="list-group-item" id="playlist10">Link</a>
+          </div>
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2014</p>
+      </footer>
+
+    </div><!--/.container-->
+
+<!-- Button trigger modal -->
+<div class="loginButtons" id="loginButtons">
+  <a data-toggle="modal" href="#signup" class="btn btn-primary btn-lg">Sign Up</a>
+    <a data-toggle="modal" href="#login" class="btn btn-primary btn-lg" >Login</a>
+</div>
+  <!-- Modal -->
+  <form id="signupForm">
+  <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Sign Up</h4>
+        </div>
+        <div class="modal-body form-horizontal">
+          <div class="divDialogElements form-group">
+            <input class="form-control required text" id="name" name="name" type="text" placeholder="User Name"/>
+            <input class="form-control required email" id="email" name="UserEmail" type="text" placeholder="E-mail"/>
+            <input class="form-control required text" id="Pass" name="Pass" type="password" placeholder="password"/>
+            <h3>Just two things to help us find you great music</h3>
+            <input class="form-control required text" id="genre" name="genre" type="text" placeholder="Favorite Genre or Artist"/>
+            <input class="form-control required zip" id="zip" name="zip" type="text" placeholder="Zip Code"/>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" onclick="signup(
+              document.getElementById('name').value, document.getElementById('email').value,
+              document.getElementById('Pass').value, document.getElementById('genre').value,
+              document.getElementById('zip').value);">Sign Up</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</form>
+   <!-- Modal -->
+  <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Sign in</h4>
+          <div type="text" id="errorText"></div>
+        </div>
+        <div class="modal-body">
+           <div class="divDialogElements">
+            <input class="form-control" id="UserName" name="UserName" type="text" placeholder="User Name"/>
+            <input class="form-control" id="PWD" name="PWD" type="password" placeholder="Password"/>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="login (
+              document.getElementById('UserName').value, document.getElementById('PWD').value);">Login</button>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://w.soundcloud.com/player/api.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="siteJS.js"></script>
+    <script src="jquery.validate.js"></script>
+  </body>
+</html>
