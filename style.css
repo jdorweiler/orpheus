@@ -1,0 +1,68 @@
+      .divDemoBody  {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 100px;
+        }
+        .errortext {
+        font-size: 18px;
+        line-height: 140%;
+        padding-top: 12px;
+
+        }
+      .divDemoBody p {
+        font-size: 18px;
+        line-height: 140%;
+        padding-top: 12px;
+        }
+      .divDialogElements input {
+        font-size: 18px;
+        padding: 3px; 
+        height: 32px; 
+        }
+      .loginBtn{
+        height:20px; 
+        width:100px; 
+        margin: -20px -50px; 
+        position:relative;
+        top:50%; 
+        left:42%;
+      }
+      .signUpBtn{
+        height:20px; 
+        width:100px; 
+        margin: -20px -50px; 
+        position:relative;
+        top:50%; 
+        left:58%;
+      }
+      .textbox{
+        height: 26px;
+      }
+      .usernavbar{
+        margin-top: 2px;
+      }
+      .jumbotron{
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: #c2c2c2;
+      }
+      .playerButtons{
+        padding-top: 20px;
+        padding-left: 10px;
+        color: #fff;
+        text-shadow: 1px 1px 1px #ccc;
+        font-size: 1.5em;
+      }
+      .userIcon{
+        padding-left: 10px;
+        color: #fff;
+      }
+      body{
+        background-color: #cccccc;
+      }
+      .list-group-item{
+        background-color: #c2c2c2;
+      }
+
+
