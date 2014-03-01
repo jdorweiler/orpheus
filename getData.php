@@ -10,6 +10,7 @@
     } 
 
     $user = NULL;
+    $type = NULL;
     $pass = NULL;
     $email = NULL;
     $location = NULL;
@@ -31,6 +32,16 @@
     	$email = $_POST['Email'];
     	$location = $_POST['Zip'];
     	$genre = $_POST['Genre'];
+    	}
+
+    	if($type == 5){
+    		//check if there is a session
+    		//get out if no session
+    		if(!$_SESSION["username"]){
+    			echo "you are not logged in";
+    			exit();
+    		}
+    		$user = $_SESSION["username"];
     	}
 	}
 	else{
@@ -62,10 +73,14 @@
 		exit();
 	}
 
+	// variables to hold database values
+	$out_id = NULL;
+	$out_pass = NULL;
+	$passCheck = NULL;
 
-	// verify users password
+	// user needs to be validates or is logged in. 
 	if($type == 1){
-	    //prepared statment for login
+	    //Get data to validate password
 		if (!($stmt = $mysqli->prepare("SELECT user, Pass FROM soundDB WHERE user='$user' LIMIT 0, 30"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
@@ -74,40 +89,33 @@
 	    	echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 
-		// variables to hold database values
-		$out_id = NULL;
-		$out_pass = NULL;
-		$passCheck = NULL;
-
 		if (!$stmt->bind_result($out_user, $out_pass)) {
 	    	echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 		}
 
 		if($stmt->fetch()) 
-			if(strcasecmp((string)$out_pass, (string)$pass) == 0)
+			if(strcasecmp((string)$out_pass, (string)$pass) == 0){
 				$passCheck = 1;
+			}
 			else
 				die("error");
 		/* close statement */
 	    $stmt->close();
+	}
 
-		if($passCheck == 1){
-			$stmt = $mysqli->prepare("SELECT user, email, location, genre, track1 FROM soundDB WHERE user='$user' LIMIT 1");
-			$stmt->execute();
-			$stmt->bind_result($out_user, $email, $location, $genre, $track1);
-			if($stmt->fetch())
-				echo json_encode(array( 'user' => $out_user, 'email' => $email, 
-					'location' => $location, 'genre' => $genre, 'track1' => $track1));
-		}
-
-
+	    // we have a good password or user is logged in already
+	if($passCheck == 1 || $type == 5){
+		$stmt = $mysqli->prepare("SELECT user, email, location, genre, track1 FROM soundDB WHERE user='$user' LIMIT 1");
+		$stmt->execute();
+		$stmt->bind_result($out_user, $email, $location, $genre, $track1);
+		if($stmt->fetch())
+			echo json_encode(array( 'user' => $out_user, 'email' => $email, 
+				'location' => $location, 'genre' => $genre, 'track1' => $track1));
+		$_SESSION["username"] = $out_user;
+	
 		 /* close statement */
 	    $stmt->close();
-	    $id = session_id();
-	    // update the user id with the session id 
-	    if (!($mysqli->query("UPDATE soundDB SET id='$id' WHERE user='$user'"))) {
-	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-		}
+
 		/* close connection */
 		$mysqli->close();
 

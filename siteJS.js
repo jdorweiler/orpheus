@@ -1,5 +1,20 @@
 var widget = null;
 $(document).ready(function() {
+
+    //check if user is logged in already
+    $(function() {
+      $.ajax({
+        type: "POST",
+        data: {type: 5}, //check session 
+        url: 'getData.php',
+        datatype: 'json',
+        success: function(res) {
+          if(res != 0)
+            startup(res);
+        }
+      });
+    });
+
    // $("#signupForm").validate();
     $('[data-toggle=offcanvas]').click(function () {
     $('.row-offcanvas').toggleClass('active')
