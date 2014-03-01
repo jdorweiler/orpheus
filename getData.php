@@ -95,7 +95,7 @@
 				$passCheck = 1;
 			}
 			else
-				die("error");
+				echo "error";
 		/* close statement */
 	    $stmt->close();
 	}

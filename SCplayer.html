@@ -133,10 +133,14 @@
     </div><!--/.container-->
 
  <!-- Button trigger modal -->
-<div class="loginButtons" id="loginButtons">
-  <a data-toggle="modal" href="#signup" class="btn btn-primary btn-lg">Sign Up</a>
-    <a data-toggle="modal" href="#login" class="btn btn-primary btn-lg" >Login</a>
-</div>
+ <div class="row">
+    <div class="col-md-2 col-md-offset-5">
+      <div class="loginButtons" id="loginButtons">
+        <a data-toggle="modal" href="#signup" class="btn btn-primary btn-lg">Sign Up</a>
+          <a data-toggle="modal" href="#login" class="btn btn-primary btn-lg" >Login</a>
+      </div>
+    </div>
+  </div>
 
 <form id="signupForm">
   <!-- Modal -->
@@ -193,6 +197,9 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4 class="modal-title">Sign in</h4>
+          <div id="loginSpinner" style="display: none;">
+          <h4 > Logging in <i class="fa fa-cog fa-spin"></i></h4>
+        </div>
           <div type="text" id="errorText"></div>
         </div>
         <div class="modal-body">
@@ -209,10 +216,6 @@
           </div>
         </div>
         <div class="modal-footer">
-          <div id="loginSpinner" style="display: none;">
-          <i class="fa fa-cog fa-spin"></i>
-          <h4> Logging in </h4>
-        </div>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" id="loginModalButton" class="btn btn-primary" onclick="login (
               document.getElementById('UserName').value, document.getElementById('PWD').value);">Login</button>

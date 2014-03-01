@@ -121,7 +121,6 @@ refreshes the albums below the player while
 not altering the player or playlist.
 */ 
 function search(searchTerm, overwrite, callback){
-  console.log("In func. search" + searchTerm);
   SC.get('/tracks', { q: searchTerm }, function(tracks){
               
     divCounter = 1;
@@ -175,7 +174,7 @@ function login (usr, pwd) {
     }
   }); 
   $('#loginSpinner').hide();       
-}, 3000);
+}, 2000);
 };
 
 
