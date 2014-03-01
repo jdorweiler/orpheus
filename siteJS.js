@@ -17,7 +17,7 @@ $(document).ready(function() {
 
    // $("#signupForm").validate();
     $('[data-toggle=offcanvas]').click(function () {
-    $('.row-offcanvas').toggleClass('active')
+      $('.row-offcanvas').toggleClass('active')
     });
 
   $(function() {
@@ -25,38 +25,49 @@ $(document).ready(function() {
     var iframe = document.querySelector('#soundcloud_player');
     widget = SC.Widget(iframe);        
     widget.bind(SC.Widget.Events.READY, function() {
-            //start the player
-            playNext(widget);
-          });
+      //start the player
+      playNext(widget);
+    });
 
     widget.bind(SC.Widget.Events.FINISH, function() {        
-            //get next song off stack
-            playNext(widget);
-        });
+      //get next song off stack
+      playNext(widget);
+    });
 
     widget.getSounds(function(sounds) {
-          //console.log(sounds);
-        });               
+      //console.log(sounds);
+    });               
 
-      $("#forwarButton").on("click", function(){
-       // console.log("next song on stack")
-        playNext(widget);
-      });
+    $("#forwarButton").on("click", function(){
+      // console.log("next song on stack")
+      playNext(widget);
+    });
 
-      $("#pauseButton").on("click", function(){
+    $("#pauseButton").on("click", function(){
       //  console.log("pause");
-        widget.pause();
-      });
+      widget.pause();
+    });
 
-      $("[id^='div']").on('click', function(){
+    $("[id^='div']").on('click', function(){
       track = $(this).data();
       pushPlayList(track, update_DB_playlist);
       updateSideBar();
-      });
+    });
 
-      $("#userName").on('click', function(){
-        $('#login').modal('show');
+    $("#userName").on('click', function(){
+      $('#login').modal('show');
+    });
+
+    $("#logout").on("click", function(){
+      $.ajax({
+        type: "POST",
+        data: {type: 6}, //check session 
+        url: 'getData.php'
       });
+      //this works but not well, fix it later
+      setTimeout(function(){location.reload();}, 1000);
+    });
+
   });
 });
 
@@ -69,7 +80,6 @@ Auth for sound cloud api
 function init(){
   SC.initialize({client_id: '18d6e5cbc088f68f2bb6a68ad994b3fe'});
 }
-
 
 /*
 function to handle the search bar.  This

@@ -48,8 +48,12 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><i class="fa fa-step-backward fa-lg fa-fw playerButtons" id="backButton" onclick="back()"></i></li>
-            <li><i class=" fa fa-pause fa-lg fa-fw playerButtons" id="pauseButton" ></i></li>
+            <li>
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-pause fa-fw fa-stack-1x "></i>
+                <i class="fa fa-circle-o fa-stack-1x" id="pauseButton" ></i>
+              </span>
+            </li>
             <li><i class="fa fa-step-forward fa-lg fa-fw playerButtons" id="forwarButton"></i></li>
           </ul>
     <div class="navbar-form navbar-right" role="form" id="navBarLogin">
@@ -64,6 +68,7 @@
           <input type="text" placeholder="search" class="form-control" id="searchText">
         <button class="btn btn-success" type="submit" onclick="search (document.getElementById('searchText').value);">Search</button>
         <i class="fa fa-user userIcon" id="userName"></i>
+        <i class="fa fa-times-circle userIcon" id="logout">Logout</i> 
     </div>
 
         </div><!-- /.nav-collapse -->
@@ -138,28 +143,43 @@
 
     </div><!--/.container-->
 
-<!-- Button trigger modal -->
+ <!-- Button trigger modal -->
 <div class="loginButtons" id="loginButtons">
   <a data-toggle="modal" href="#signup" class="btn btn-primary btn-lg">Sign Up</a>
     <a data-toggle="modal" href="#login" class="btn btn-primary btn-lg" >Login</a>
 </div>
+
   <!-- Modal -->
-  <form id="signupForm">
   <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Sign Up</h4>
+          <h3 class="modal-title">Sign Up</h3>
         </div>
         <div class="modal-body form-horizontal">
           <div class="divDialogElements form-group">
+            <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
             <input class="form-control required text" id="name" name="name" type="text" placeholder="User Name"/>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
             <input class="form-control required email" id="email" name="UserEmail" type="text" placeholder="E-mail"/>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
             <input class="form-control required text" id="Pass" name="Pass" type="password" placeholder="password"/>
+          </div>
             <h3>Just two things to help us find you great music</h3>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-music fa-fw"></i></span>
             <input class="form-control required text" id="genre" name="genre" type="text" placeholder="Favorite Genre or Artist"/>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
             <input class="form-control required zip" id="zip" name="zip" type="text" placeholder="Zip Code"/>
+          </div>
             </div>
           </div>
         </div>
@@ -173,7 +193,7 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-</form>
+
    <!-- Modal -->
   <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -37,17 +37,19 @@
     	if($type == 5){
     		//check if there is a session
     		//get out if no session
-    		if(!$_SESSION["username"]){
-    			echo "you are not logged in";
+    		if(!isset($_SESSION['username'])){
+    			echo 0;
     			exit();
     		}
     		$user = $_SESSION["username"];
     	}
-	}
-	else{
-    	echo "Post request didn't work";
-	}   
 
+    	if($type == 6){
+    		session_destroy();
+    		exit();
+    	}
+	}
+  
 	// check to see what type of request we got.
 	// options are 1: verify password, 2: add user to DB, 3: push playlist to DB, 4: get playlist from DB
 
@@ -58,8 +60,8 @@
 		}
 		echo json_encode(array( 'user' => $user, 'genre' => $genre));
 		$mysqli->close();
+		$_SESSION["username"] = $user;
 		exit();
-
 	}
 
 	// push the playlist stack back to the database.
@@ -67,8 +69,6 @@
 		if (!($mysqli->query("INSERT INTO soundDB(user,Pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
-		
-		
 		$mysqli->close();
 		exit();
 	}
@@ -84,15 +84,12 @@
 		if (!($stmt = $mysqli->prepare("SELECT user, Pass FROM soundDB WHERE user='$user' LIMIT 0, 30"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
-
 		if (!$stmt->execute()) {
 	    	echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
-
 		if (!$stmt->bind_result($out_user, $out_pass)) {
 	    	echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 		}
-
 		if($stmt->fetch()) 
 			if(strcasecmp((string)$out_pass, (string)$pass) == 0){
 				$passCheck = 1;
