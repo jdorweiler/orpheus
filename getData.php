@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	ini_set('display_errors', 'On');
 	include 'password.php';
 
@@ -102,8 +103,14 @@
 
 		 /* close statement */
 	    $stmt->close();
+	    $id = session_id();
+	    // update the user id with the session id 
+	    if (!($mysqli->query("UPDATE soundDB SET id='$id' WHERE user='$user'"))) {
+	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
 		/* close connection */
 		$mysqli->close();
+
 		exit();
 	}
 
