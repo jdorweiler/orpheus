@@ -57,12 +57,12 @@
           <input type="password" placeholder="Password" class="form-control">
           <button class="btn btn-success" type="submit">Sign in</button>
     </div>
-        <div class="navbar-form navbar-right" role="form" id="searchButton" style="display: none;">
-        <div class="form-group"></div>
-          <input type="text" placeholder="search" class="form-control searchbox" id="searchText">
-        <button class="btn btn-primary" type="submit" onclick="search (document.getElementById('searchText').value);">Search</button>
-          <a class="btn btn-primary" href="#"><i class="fa fa-user userIcon" id="userName"></i></a>
+      <div class="navbar-form navbar-right" id="searchButton" style="display: none;">
+        <form class="navbar-search" id="searchForm">
+        <input type="text" placeholder="search" class="form-control searchbox search-query" id="searchText">
+                <a class="btn btn-primary" href="#"><i class="fa fa-user userIcon" id="userName"></i></a>
         <a class="btn btn-primary" href="#"><i class="fa fa-times-circle userIcon" id="logout">Logout</i></a> 
+        </form>
     </div>
 
         </div><!-- /.nav-collapse -->
@@ -138,6 +138,7 @@
     <a data-toggle="modal" href="#login" class="btn btn-primary btn-lg" >Login</a>
 </div>
 
+<form id="signupForm">
   <!-- Modal -->
   <div class="modal fade" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -150,7 +151,7 @@
           <div class="divDialogElements form-group">
             <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-            <input class="form-control required text" id="name" name="name" type="text" placeholder="User Name"/>
+            <input class="form-control required name" id="name" name="name" type="text" placeholder="User Name"/>
           </div>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
@@ -158,7 +159,7 @@
           </div>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-            <input class="form-control required text" id="Pass" name="Pass" type="password" placeholder="password"/>
+            <input class="form-control required Pass" id="Pass" name="Pass" type="password" placeholder="password"/>
           </div>
             <h3>Just two things to help us find you great music</h3>
           <div class="input-group">
@@ -174,15 +175,17 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" onclick="signup(
+          <input type="submit" class="btn btn-primary" id="signupModalButton" onclick="signup(
               document.getElementById('name').value, document.getElementById('email').value,
               document.getElementById('Pass').value, document.getElementById('genre').value,
-              document.getElementById('zip').value);">Sign Up</button>
+              document.getElementById('zip').value);" text="Sign Up"></input>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+</form>
 
+<form id="loginForm">
    <!-- Modal -->
   <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -196,11 +199,11 @@
            <div class="divDialogElements">
             <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-            <input class="form-control" id="UserName" name="UserName" type="text" placeholder="User Name"/>
+            <input class="form-control required name" id="UserName" name="UserName" type="text" placeholder="User Name"/>
           </div>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-            <input class="form-control" id="PWD" name="PWD" type="password" placeholder="Password"/>
+            <input class="form-control required Pass" id="PWD" name="PWD" type="password" placeholder="Password"/>
           </div>
             </div>
           </div>
@@ -216,6 +219,7 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+</form>
 
     <!-- Modal -->
   <div class="modal fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -229,7 +233,7 @@
           <div class="divDialogElements form-group">
             <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-            <input class="form-control required text" id="name" name="name" type="text" placeholder="User Name"/>
+            <input class="form-control required name" id="name" name="name" type="text" placeholder="User Name"/>
           </div>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>

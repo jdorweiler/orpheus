@@ -15,7 +15,27 @@ $(document).ready(function() {
       });
     });
 
-   // $("#signupForm").validate();
+    jQuery.validator.addClassRules({
+       name: {
+        required: true,
+        minlength: 3
+      },
+      zip: {
+        required: true,
+        digits: true,
+        minlength: 5,
+        maxlength: 5
+      },
+      Pass: {
+        required: true,
+        minlength: 5,
+        maxlength: 25
+      }
+    });
+
+    $("#signupForm").validate();
+    $("#loginForm").validate();
+
     $('[data-toggle=offcanvas]').click(function () {
       $('.row-offcanvas').toggleClass('active')
     });
@@ -59,6 +79,19 @@ $(document).ready(function() {
       $('#userInfo').modal('show');
     });
 
+    $("#signupForm").submit(function(e){
+      e.preventDefault();
+    });
+
+    $("#loginForm").submit(function(e){
+      e.preventDefault();
+    });
+
+    $("#searchForm").submit(function(e){
+      e.preventDefault(); 
+      search( $("#searchForm :input").val());
+    });
+
     $("#logout").on("click", function(){
       $.ajax({
         type: "POST",
@@ -88,7 +121,7 @@ refreshes the albums below the player while
 not altering the player or playlist.
 */ 
 function search(searchTerm, overwrite, callback){
-
+  console.log("In func. search" + searchTerm);
   SC.get('/tracks', { q: searchTerm }, function(tracks){
               
     divCounter = 1;
@@ -153,7 +186,7 @@ user name and genre to start the music player
 with.
 */
 function signup (usr, email, pwd, genre, zip) {
-          
+   if (!$("#signupForm").valid()) return;       
   //check user info;
   var data = {
     userName: usr,
