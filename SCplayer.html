@@ -67,8 +67,10 @@
         <div class="form-group"></div>
           <input type="text" placeholder="search" class="form-control" id="searchText">
         <button class="btn btn-success" type="submit" onclick="search (document.getElementById('searchText').value);">Search</button>
-        <i class="fa fa-user userIcon" id="userName"></i>
-        <i class="fa fa-times-circle userIcon" id="logout">Logout</i> 
+        <div class="btn btn-group">
+          <a class="btn btn-primary" href="#"><i class="fa fa-user userIcon" id="userName"></i></a>
+        <a class="btn btn-primary" href="#"><i class="fa fa-times-circle userIcon" id="logout">Logout</i></a> 
+      </div>
     </div>
 
         </div><!-- /.nav-collapse -->
@@ -136,11 +138,6 @@
       </div><!--/row-->
 
       <hr>
-
-      <footer>
-        <p>&copy; Company 2014</p>
-      </footer>
-
     </div><!--/.container-->
 
  <!-- Button trigger modal -->
@@ -205,15 +202,65 @@
         </div>
         <div class="modal-body">
            <div class="divDialogElements">
+            <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
             <input class="form-control" id="UserName" name="UserName" type="text" placeholder="User Name"/>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
             <input class="form-control" id="PWD" name="PWD" type="password" placeholder="Password"/>
+          </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div id="loginSpinner" style="display: none;">
+          <i class="fa fa-cog fa-spin"></i>
+          <h4> Logging in </h4>
+        </div>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" id="loginModalButton" class="btn btn-primary" onclick="login (
+              document.getElementById('UserName').value, document.getElementById('PWD').value);">Login</button>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+    <!-- Modal -->
+  <div class="modal fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3 class="modal-title">Update your user info</h3>
+        </div>
+        <div class="modal-body form-horizontal">
+          <div class="divDialogElements form-group">
+            <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+            <input class="form-control required text" id="name" name="name" type="text" placeholder="User Name"/>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+            <input class="form-control required email" id="email" name="UserEmail" type="text" placeholder="E-mail"/>
+          </div>
+            <h3>Just two things to help us find you great music</h3>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-music fa-fw"></i></span>
+            <input class="form-control required text" id="genre" name="genre" type="text" placeholder="Favorite Genre or Artist"/>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
+            <input class="form-control required zip" id="zip" name="zip" type="text" placeholder="Zip Code"/>
+          </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="login (
-              document.getElementById('UserName').value, document.getElementById('PWD').value);">Login</button>
+          <button type="submit" class="btn btn-primary" onclick="updateInfo(
+              document.getElementById('name').value, document.getElementById('email').value,
+              document.getElementById('genre').value,document.getElementById('zip').value);">Update</button>
+        </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->

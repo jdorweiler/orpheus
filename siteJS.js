@@ -54,8 +54,9 @@ $(document).ready(function() {
       updateSideBar();
     });
 
-    $("#userName").on('click', function(){
-      $('#login').modal('show');
+    $("#userName").on('click', function(res){
+      console.log(res);
+      $('#userInfo').modal('show');
     });
 
     $("#logout").on("click", function(){
@@ -118,7 +119,8 @@ via ajax post. If successful we get back their
 info including their previous playlist in json.
 */     
 function login (usr, pwd) {
-          
+  $('#loginSpinner').show();
+  setTimeout(function(){
   //check user info;
   var data = {
     userName: usr,
@@ -138,8 +140,11 @@ function login (usr, pwd) {
         startup(res);//get playlist from DB and start it
       }
     }
-  });        
+  }); 
+  $('#loginSpinner').hide();       
+}, 3000);
 };
+
 
 /*
 Sign up a new user.  Send their info to server
