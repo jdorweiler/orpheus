@@ -49,11 +49,11 @@
       }
       .playerButtons{
         color: #fff;
+        padding-top: 10px;
         text-shadow: 1px 1px 1px #ccc;
         font-size: 1.5em;
       }
       .userIcon{
-        padding-left: 10px;
         color: #fff;
       }
       body{
@@ -61,6 +61,17 @@
       }
       .list-group-item{
         background-color: #c2c2c2;
+      }
+      .navbar-nav > li > a {
+        padding-top:10px !important; 
+        padding-bottom:10px !important;
+      }
+      .navbar {
+        max-height:45px !important;
+        min-height:35px !important;
+      }
+      .btn-primary, .searchbox{
+        max-height: 30px;
       }
 
 
