@@ -93,6 +93,7 @@ $(document).ready(function() {
     });
 
     $("#logout").on("click", function(){
+      widget.pause();
       $.ajax({
         type: "POST",
         data: {type: 6}, //check session 
