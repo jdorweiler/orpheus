@@ -102,6 +102,7 @@ $(document).ready(function() {
         $("#UDemail").val(),
         $("#UDgenre").val(),
         $("#UDzip").val());
+      $("#userInfo").modal('hide');
     });
 
     $("#signupForm").submit(function(e){
@@ -124,9 +125,7 @@ $(document).ready(function() {
         url: 'getData.php'
       });
       widget.pause();
-      setTimeout(function(){
-        shutdown(),
-        1000});
+      shutdown();
     });
 
   });
@@ -351,6 +350,7 @@ function shutdown(){
   $('#controlButtons').hide();
   userAcctInfo = null;
   playListStack = null;
-  location.reload(true);
+  setTimeout(function(){
+    location.reload(true), 2000});
 
 }
