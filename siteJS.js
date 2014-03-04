@@ -3,14 +3,17 @@ $(document).ready(function() {
 
     //check if user is logged in already
     $(function() {
+
       $.ajax({
         type: "POST",
         data: {type: 5}, //check session 
         url: 'getData.php',
         datatype: 'json',
         success: function(res) {
-          if(res != 0)
+          if(res != 0){
+            console.log("found")
             startup(res);
+          }
         }
       });
     });
@@ -18,7 +21,7 @@ $(document).ready(function() {
     jQuery.validator.addClassRules({
        name: {
         required: true,
-        minlength: 3
+        minlength: 5
       },
       zip: {
         required: true,
@@ -28,7 +31,7 @@ $(document).ready(function() {
       },
       Pass: {
         required: true,
-        minlength: 5,
+        minlength: 8,
         maxlength: 25
       }
     });
@@ -46,7 +49,8 @@ $(document).ready(function() {
     widget = SC.Widget(iframe);        
     widget.bind(SC.Widget.Events.READY, function() {
       //start the player
-      playNext(widget);
+      console.log("ready event");
+      playNext(widget, true);
     });
 
     widget.bind(SC.Widget.Events.FINISH, function() {        
@@ -93,14 +97,13 @@ $(document).ready(function() {
     });
 
     $("#logout").on("click", function(){
-      widget.pause();
       $.ajax({
         type: "POST",
         data: {type: 6}, //check session 
         url: 'getData.php'
       });
-      //this works but not well, fix it later
-      setTimeout(function(){location.reload();}, 1000);
+      widget.pause();
+      shutdown();
     });
 
   });
@@ -175,7 +178,7 @@ function login (usr, pwd) {
     }
   }); 
   $('#loginSpinner').hide();       
-}, 2000);
+}, 1000);
 };
 
 
@@ -239,12 +242,12 @@ function startup(response){
             
   response = JSON.parse(response);
   $('#mainContent').show();
-  $('#navBarLogin').hide(); 
   $('#searchButton').show();
   $('#loginButtons').hide();
   $('#login').modal('hide');
   $('#signup').modal('hide');
   $('#userName').text(" "+response.user);
+  $('#controlButtons').show();
   //SC API Auth
   init();
 
@@ -269,12 +272,16 @@ function pushPlayList(track, callback){
 /*
 Pop the next track off the stack and play it
 */
-var playNext = function(widget){
+var playNext = function(widget, pause){
   size = playListStack.length-1;
   if(playListStack[size-1] != "Null"){
     widget.load(playListStack.pop().uri+"&auto_play=true");
     updateSideBar();
   }
+      if(pause){
+      console.log("this should be paused now");
+      widget.pause();
+    }
 }
 
 function updateSideBar(){
@@ -291,3 +298,13 @@ function updateSideBar(){
   }
 }
 
+function shutdown(){
+  //clean up the page to bring it back
+  // to the login screen
+  $('#mainContent').hide();
+  $('#searchButton').hide();
+  $('#loginButtons').show();
+  $('#userName').hide();
+  $('#controlButtons').hide();
+
+}
