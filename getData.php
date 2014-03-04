@@ -22,16 +22,16 @@
 
 		// check user password
 		if($type == 1){
-    	$user = $_POST['userName']; 
-    	$pass = $_POST['Pass'];
+	    	$user = $_POST['userName']; 
+	    	$pass = $_POST['Pass'];
     	}
 
     	if($type == 2){
-    	$user = $_POST['userName']; 
-    	$pass = $_POST['Pass'];
-    	$email = $_POST['Email'];
-    	$location = $_POST['Zip'];
-    	$genre = $_POST['Genre'];
+	    	$user = $_POST['userName']; 
+	    	$pass = $_POST['Pass'];
+	    	$email = $_POST['Email'];
+	    	$location = $_POST['Zip'];
+	    	$genre = $_POST['Genre'];
     	}
 
     	if($type == 5){
@@ -47,6 +47,12 @@
     	if($type == 6){
     		session_destroy();
     		exit();
+    	}
+
+    	if($type == 7){
+	    	$email = $_POST['Email'];
+	    	$location = $_POST['Zip'];
+	    	$genre = $_POST['Genre'];
     	}
 	}
 		// variables to hold database values
@@ -97,16 +103,13 @@
 			exit();
 		}
 
-		
-
-
-	if (!($mysqli->query("INSERT INTO soundDB(user,Pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
-	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-		}
-		echo json_encode(array( 'user' => $user, 'genre' => $genre));
-		$mysqli->close();
-		$_SESSION["username"] = $user;
-		exit();
+		if (!($mysqli->query("INSERT INTO soundDB(user,Pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
+		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+			}
+			echo json_encode(array( 'user' => $user, 'genre' => $genre));
+			$mysqli->close();
+			$_SESSION["username"] = $user;
+			exit();
 	}
 
 	// push the playlist stack back to the database.
@@ -160,6 +163,15 @@
 		exit();
 	}
 
-		/* close connection */
-		$mysqli->close();
+	if($type == 7){
+		$user = $_SESSION["username"];
+		if (!($mysqli->query("UPDATE soundDB SET email='$email',genre='$genre',location='$location' WHERE user='$user'"))){
+		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+			}
+			exit();
+	}
+
+
+	/* close connection */
+	$mysqli->close();
 ?>

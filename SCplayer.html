@@ -212,6 +212,7 @@
   </div><!-- /.modal -->
 </form>
 
+<form id="userInfoForm">
     <!-- Modal -->
   <div class="modal fade" id="userInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -222,35 +223,31 @@
         </div> 
         <div class="modal-body form-horizontal">
           <div class="divDialogElements form-group">
-            <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-            <input class="form-control required name" id="name" name="name" type="text" placeholder="User Name"/>
-          </div>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-            <input class="form-control required email" id="email" name="UserEmail" type="text" placeholder="E-mail"/>
+            <input class="form-control required email" id="UDemail" name="UserEmail" type="text" placeholder="E-mail"/>
           </div>
             <h3>Just two things to help us find you great music</h3>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-music fa-fw"></i></span>
-            <input class="form-control required text" id="genre" name="genre" type="text" placeholder="Favorite Genre or Artist"/>
+            <input class="form-control required text" id="UDgenre" name="genre" type="text" placeholder="Favorite Genre or Artist"/>
           </div>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
-            <input class="form-control required zip" id="zip" name="zip" type="text" placeholder="Zip Code"/>
+            <input class="form-control required zip" id="UDzip" name="zip" type="text" placeholder="Zip Code"/>
           </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" onclick="updateInfo(
-              document.getElementById('name').value, document.getElementById('email').value,
-              document.getElementById('genre').value,document.getElementById('zip').value);">Update</button>
+          <input type="submit" class="btn btn-success"></input>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+</form>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

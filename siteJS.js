@@ -1,4 +1,12 @@
 var widget = null;
+
+//store playlists in stack
+var playListStack = [];
+
+//local storage for non private
+// user info
+var userAcctInfo;
+
 $(document).ready(function() {
 
     //check if user is logged in already
@@ -38,6 +46,7 @@ $(document).ready(function() {
 
     $("#signupForm").validate();
     $("#loginForm").validate();
+    $("#userInfoForm").validate();
 
     $('[data-toggle=offcanvas]').click(function () {
       $('.row-offcanvas').toggleClass('active')
@@ -49,7 +58,6 @@ $(document).ready(function() {
     widget = SC.Widget(iframe);        
     widget.bind(SC.Widget.Events.READY, function() {
       //start the player
-      console.log("ready event");
       playNext(widget, true);
     });
 
@@ -79,8 +87,21 @@ $(document).ready(function() {
     });
 
     $("#userName").on('click', function(res){
-      console.log(res);
       $('#userInfo').modal('show');
+      data = JSON.parse(userAcctInfo);
+      $('#UDname').val(data.user);
+      $('#UDemail').val(data.email);
+      $('#UDzip').val(data.location);
+      $('#UDgenre').val(data.genre);
+    });
+
+    $("#userInfoForm").submit(function(e){
+      e.preventDefault();
+      if (!$("#userInfoForm").valid()) return;
+      updateInfo(
+        $("#UDemail").val(),
+        $("#UDgenre").val(),
+        $("#UDzip").val());
     });
 
     $("#signupForm").submit(function(e){
@@ -103,14 +124,13 @@ $(document).ready(function() {
         url: 'getData.php'
       });
       widget.pause();
-      shutdown();
+      setTimeout(function(){
+        shutdown(),
+        1000});
     });
 
   });
 });
-
-//store playlists in stack
-var playListStack = [];
 
 /*
 Auth for sound cloud api
@@ -174,6 +194,7 @@ function login (usr, pwd) {
         $('#errorText').text('Error Logging In');
       else{
         startup(res);//get playlist from DB and start it
+        userAcctInfo = res;
       }
     }
   }); 
@@ -248,6 +269,7 @@ function startup(response){
   $('#loginButtons').hide();
   $('#login').modal('hide');
   $('#signup').modal('hide');
+  $('#userName').show();
   $('#userName').text(" "+response.user);
   $('#controlButtons').show();
   //SC API Auth
@@ -259,6 +281,25 @@ function startup(response){
     search(response.genre, true, playNext);
   }
 }
+
+function updateInfo(email, genre, loc){
+  var data = {
+    Email: email,
+    Genre: genre, 
+    Zip: loc,
+    type: 7 // 7: update DB
+  };     
+  //check user info;        
+  $.ajax({
+    type: "POST",
+    data: data,
+    url: 'getData.php',
+    datatype: 'json',
+    success: function(res){
+      console.log("DB updated")
+    }
+  });        
+};
 
 //on click function for album art boxes
 // push new song to stack
@@ -308,5 +349,8 @@ function shutdown(){
   $('#loginButtons').show();
   $('#userName').hide();
   $('#controlButtons').hide();
+  userAcctInfo = null;
+  playListStack = null;
+  location.reload(true);
 
 }
