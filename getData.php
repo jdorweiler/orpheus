@@ -49,13 +49,58 @@
     		exit();
     	}
 	}
+		// variables to hold database values
+	$out_id = NULL;
+	$out_pass = NULL;
+	$passCheck = NULL;
+	$out_email = NULL;
   
 	// check to see what type of request we got.
 	// options are 1: verify password, 2: add user to DB, 3: push playlist to DB, 4: get playlist from DB
 
 	 // add user to database then send their data back to get player started.
-	if($type == 2){ 
-		if (!($mysqli->query("INSERT INTO soundDB(user,Pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
+	if($type == 2){
+
+		if (!($stmt = $mysqli->prepare("SELECT user, email FROM soundDB WHERE user='$user' LIMIT 1"))) {
+	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		if (!$stmt->execute()) {
+	    	echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		if (!$stmt->bind_result($out_user, $out_email)) {
+	    	echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+
+		$stmt->fetch();
+
+		if($out_user){
+			echo "error 1";
+			exit();
+		}
+
+		$stmt->close();
+		// check for existing emails
+		if (!($stmt = $mysqli->prepare("SELECT email FROM soundDB WHERE email='$email' LIMIT 1"))) {
+	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		if (!$stmt->execute()) {
+	    	echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		if (!$stmt->bind_result($out_email)) {
+	    	echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+		}
+
+		$stmt->fetch();
+
+		if($out_email){
+			echo "error 2";
+			exit();
+		}
+
+		
+
+
+	if (!($mysqli->query("INSERT INTO soundDB(user,Pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		echo json_encode(array( 'user' => $user, 'genre' => $genre));
@@ -73,15 +118,11 @@
 		exit();
 	}
 
-	// variables to hold database values
-	$out_id = NULL;
-	$out_pass = NULL;
-	$passCheck = NULL;
 
 	// user needs to be validates or is logged in. 
 	if($type == 1){
 	    //Get data to validate password
-		if (!($stmt = $mysqli->prepare("SELECT user, Pass FROM soundDB WHERE user='$user' LIMIT 0, 30"))) {
+		if (!($stmt = $mysqli->prepare("SELECT user, Pass FROM soundDB WHERE user='$user'"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
@@ -119,5 +160,6 @@
 		exit();
 	}
 
-
+		/* close connection */
+		$mysqli->close();
 ?>

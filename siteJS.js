@@ -206,8 +206,10 @@ function signup (usr, email, pwd, genre, zip) {
     url: 'getData.php',
     datatype: 'json',
     success: function(res) { // res is {username, genre}
-      if(res == "error")
-        $('#errorText').text('Error Logging In');
+      if(res == "error 1")
+        $('#errorTextSignup').text('Username is already taken');
+      else if(res == "error 2")
+        $('#errorTextSignup').text('Email is already in use');
       else
         startup(res); // start player
       }
