@@ -288,6 +288,7 @@ function updateInfo(email, genre, loc){
     Zip: loc,
     type: 7 // 7: update DB
   };     
+  console.log("sent to db "+data);
   //check user info;        
   $.ajax({
     type: "POST",
