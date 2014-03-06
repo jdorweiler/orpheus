@@ -107,6 +107,7 @@ $(document).ready(function() {
 
     $("#signupForm").submit(function(e){
       e.preventDefault();
+      console.log("got signup");
     });
 
     $("#loginForm").submit(function(e){
@@ -125,7 +126,8 @@ $(document).ready(function() {
         url: 'getData.php'
       });
       widget.pause();
-      shutdown();
+      setTimeout(function(){
+        shutdown();}, 1000);
     });
 
   });
@@ -175,11 +177,12 @@ info including their previous playlist in json.
 */     
 function login (usr, pwd) {
   $('#loginSpinner').show();
+  console.log(CryptoJS.SHA3(pwd,{outputLength: 224}).toString());
   setTimeout(function(){
   //check user info;
   var data = {
     userName: usr,
-    Pass: pwd,
+    Pass: CryptoJS.SHA3(pwd,{outputLength: 224}).toString(),
     type: 1, // 1: login
   };
 
@@ -213,7 +216,7 @@ function signup (usr, email, pwd, genre, zip) {
   //check user info;
   var data = {
     userName: usr,
-    Pass: pwd,
+    Pass: CryptoJS.SHA3(pwd,{outputLength: 224}).toString(),
     Email: email,
     Genre: genre, 
     Zip: zip,
@@ -232,6 +235,7 @@ function signup (usr, email, pwd, genre, zip) {
         $('#errorTextSignup').text('Email is already in use');
       else
         startup(res); // start player
+        userAcctInfo = res;
       }
   });        
 };
