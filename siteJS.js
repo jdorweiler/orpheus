@@ -20,6 +20,7 @@ $(document).ready(function() {
         success: function(res) {
           if(res != 0){
             startup(res);
+            userAcctInfo = res;
           }
         }
       });
@@ -278,6 +279,7 @@ the player started.
 function startup(response){
             
   response = JSON.parse(response);
+  $('#frontpage').hide();
   $('#mainContent').show();
   $('#searchButton').show();
   $('#loginButtons').hide();
@@ -292,10 +294,13 @@ function startup(response){
   if(response.playlist == null){
     //fill playlist based on genre
     search(response.genre, true, playNext);
+    console.log("in null playlist");
   }
-  else
+  else{
     playListStack = $.parseJSON(response.playlist);
+    console.log("parse playlist " + playListStack.track);
     search(response.genre, false, playNext);
+  }
 }
 
 /*
@@ -376,6 +381,7 @@ this restores the page back to the login and stop the player
 */
 function shutdown(){
   $('#mainContent').hide();
+  $('#frontpage').show();
   $('#searchButton').hide();
   $('#loginButtons').show();
   $('#userName').hide();
