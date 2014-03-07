@@ -19,7 +19,6 @@ $(document).ready(function() {
         datatype: 'json',
         success: function(res) {
           if(res != 0){
-            console.log("found")
             startup(res);
           }
         }
@@ -70,7 +69,7 @@ $(document).ready(function() {
     });
 
     widget.getSounds(function(sounds) {
-      //console.log(sounds);
+
     });               
 
     $("#forwarButton").on("click", function(){
@@ -84,9 +83,14 @@ $(document).ready(function() {
     // user clicked on an album image, get the data stored
     // in the div and push it to the stack
     $("[id^='div']").on('click', function(){
-      track = $(this).data();
-      pushPlayList(track.uri, track.title.replace(/["']/g, ""), update_DB_playlist);
+      data = $(this).data();
+      pushPlayList(data.track, data.title.replace(/["']/g, ""), update_DB_playlist);
       updateSideBar();
+    });
+
+    $("[id^='playlist']").on('click', function(){
+      data = $(this).data();
+      widget.load(data.track+"&auto_play=true");
     });
 
     // open user info modal
@@ -161,7 +165,7 @@ function search(searchTerm, overwrite, callback){
                   
         $('#track'+divCounter+'-img').attr('src', tracks[i].artwork_url); //update album image and force browser reload of images.
         $('#track'+divCounter+'-title').text(tracks[i].title);
-        $('#div'+divCounter).data({ uri: tracks[i].uri, title: tracks[i].title});
+        $('#div'+divCounter).data({ track: tracks[i].uri, title: tracks[i].title});
         if(overwrite) 
           playListStack.unshift({ track: tracks[i].uri, title: tracks[i].title.replace(/["']/g, "")});
         divCounter++;
@@ -171,7 +175,6 @@ function search(searchTerm, overwrite, callback){
       if(divCounter == 11)
         i = tracks.length;
     }
-   // console.log(playListStack);
    if(callback)
       callback(widget);
   });
@@ -306,7 +309,6 @@ function updateInfo(email, genre, loc){
     Zip: loc,
     type: 7 // 7: update DB
   };     
-  console.log("sent to db "+data);
   //check user info;        
   $.ajax({
     type: "POST",
@@ -314,7 +316,7 @@ function updateInfo(email, genre, loc){
     url: 'getData.php',
     datatype: 'json',
     success: function(res){
-      console.log("DB updated")
+     // console.log("DB updated")
     }
   });        
 };
@@ -352,16 +354,19 @@ var playNext = function(widget, pause){
 Update the playlist sidebar
 */
 function updateSideBar(){
- // console.log(playListStack);
   count = 1;
   //update playlist titles
   for(i = playListStack.length; i > 0; i--){
       $("#playlist"+count).text(playListStack[i-1].title);
+      Playtrack = playListStack[i-1].track;
+      Playtitle =playListStack[i-1].title;
+      $("#playlist"+count).data({ track: Playtrack, title: Playtitle});
     count++;
   }
   //update empty playlist spots
   for(i = playListStack.length; i < 11; i++){
       $("#playlist"+i).text("Empty! Add more songs");
+      $("#playlist"+i).data();
   }
 }
 
