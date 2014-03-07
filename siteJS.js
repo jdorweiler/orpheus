@@ -1,7 +1,7 @@
 var widget = null;
 
 //store playlists in stack
-var playListStack = [];
+var playListStack = new Array();
 
 //local storage for non private
 // user info
@@ -82,7 +82,7 @@ $(document).ready(function() {
 
     $("[id^='div']").on('click', function(){
       track = $(this).data();
-      pushPlayList(track, update_DB_playlist);
+      pushPlayList(track.uri, track.title.replace(/["']/g, ""), update_DB_playlist);
       updateSideBar();
     });
 
@@ -155,9 +155,9 @@ function search(searchTerm, overwrite, callback){
                   
         $('#track'+divCounter+'-img').attr('src', tracks[i].artwork_url); //update album image and force browser reload of images.
         $('#track'+divCounter+'-title').text(tracks[i].title);
-        $('#div'+divCounter).data(tracks[i]);
+        $('#div'+divCounter).data({ uri: tracks[i].uri, title: tracks[i].title});
         if(overwrite) 
-          playListStack.unshift(tracks[i]);
+          playListStack.unshift({ uri: tracks[i].uri, title: tracks[i].title.replace(/["']/g, "")});
         divCounter++;
       }
       //get out of loop       
@@ -177,7 +177,6 @@ info including their previous playlist in json.
 */     
 function login (usr, pwd) {
   $('#loginSpinner').show();
-  console.log(CryptoJS.SHA3(pwd,{outputLength: 224}).toString());
   setTimeout(function(){
   //check user info;
   var data = {
@@ -240,12 +239,11 @@ function signup (usr, email, pwd, genre, zip) {
   });        
 };
 
-var update_DB_playlist = function(){
+function update_DB_playlist(){
     //send post to DB to update playlist
       //check user info;
   var data = {
-    userName: $('#userName').text(),
-    tracks: playListStack,
+    playlist: JSON.stringify(playListStack),
     type: 3 // 3: update playlist
   };
           
@@ -278,11 +276,13 @@ function startup(response){
   //SC API Auth
   init();
 
-  if(response.track1 == null){
+  if(response.playlist == null){
     //fill playlist based on genre
-   // console.log("got null track");
     search(response.genre, true, playNext);
   }
+  else
+    playListStack = $.parseJSON(response.playlist);
+    search(response.genre, false, playNext);
 }
 
 function updateInfo(email, genre, loc){
@@ -307,10 +307,10 @@ function updateInfo(email, genre, loc){
 
 //on click function for album art boxes
 // push new song to stack
-function pushPlayList(track, callback){
+function pushPlayList(uri, text,  callback){
   //push to stack
   //update playlist in db
-  playListStack.push(track);
+  playListStack.push({ track: uri, title: text});
   if(callback){
     callback();
   }
@@ -322,13 +322,14 @@ Pop the next track off the stack and play it
 var playNext = function(widget, pause){
   size = playListStack.length-1;
   if(playListStack[size-1] != "Null"){
-    widget.load(playListStack.pop().uri+"&auto_play=true");
+    widget.load(playListStack.pop().track+"&auto_play=true");
     updateSideBar();
   }
       if(pause){
       console.log("this should be paused now");
       widget.pause();
     }
+    update_DB_playlist();
 }
 
 function updateSideBar(){

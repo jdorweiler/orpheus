@@ -14,8 +14,7 @@
     $pass = NULL;
     $email = NULL;
     $location = NULL;
-    $track1 = NULL; $track2 = NULL; $track3 = NULL; $track4 = NULL; $track5 = NULL;  $track6 = NULL; $track7 = NULL;
-    $track8 = NULL; $track9 = NULL; $track10 = NULL; $genre = NULL;
+    $playlist = NULL;
 
 	if($_SERVER['REQUEST_METHOD'] == "POST"){
 		$type = $_POST['type'];
@@ -32,6 +31,10 @@
 	    	$email = $_POST['Email'];
 	    	$location = $_POST['Zip'];
 	    	$genre = $_POST['Genre'];
+    	}
+
+    	if($type == 3){
+    		$playlist = $_POST['playlist'];
     	}
 
     	if($type == 5){
@@ -107,19 +110,19 @@
 		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
 			echo json_encode(array( 'user' => $user, 'email' => $email, 
-				'location' => $location, 'genre' => $genre, 'track1' => $track1));
+				'location' => $location, 'genre' => $genre));
 			$mysqli->close();
 			$_SESSION["username"] = $user;
 			exit();
 	}
 
 	// push the playlist stack back to the database.
-	if($type == 3){ 
-		if (!($mysqli->query("INSERT INTO soundDB(user,Pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
-	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-		}
-		$mysqli->close();
-		exit();
+	if($type == 3){
+		$user = $_SESSION["username"];
+		if (!($mysqli->query("UPDATE soundDB SET playList='$playlist' WHERE user='$user'"))){
+		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+			}
+			exit();
 	}
 
 
@@ -147,12 +150,12 @@
 
 	    // we have a good password or user is logged in already
 	if($passCheck == 1 || $type == 5){
-		$stmt = $mysqli->prepare("SELECT user, email, location, genre, track1 FROM soundDB WHERE user='$user' LIMIT 1");
+		$stmt = $mysqli->prepare("SELECT user, email, location, genre, playList FROM soundDB WHERE user='$user' LIMIT 1");
 		$stmt->execute();
-		$stmt->bind_result($out_user, $email, $location, $genre, $track1);
+		$stmt->bind_result($out_user, $email, $location, $genre, $playlist);
 		if($stmt->fetch())
 			echo json_encode(array( 'user' => $out_user, 'email' => $email, 
-				'location' => $location, 'genre' => $genre, 'track1' => $track1));
+				'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
 		$_SESSION["username"] = $out_user;
 	
 		 /* close statement */
