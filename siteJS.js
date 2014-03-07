@@ -39,19 +39,22 @@ $(document).ready(function() {
       },
       Pass: {
         required: true,
-        minlength: 8,
+        minlength: 4,
         maxlength: 25
       }
     });
 
+    //start jQuery validator
     $("#signupForm").validate();
     $("#loginForm").validate();
     $("#userInfoForm").validate();
 
+    // toggle for side bar
     $('[data-toggle=offcanvas]').click(function () {
       $('.row-offcanvas').toggleClass('active')
     });
 
+    //player and event handlers
   $(function() {
 
     var iframe = document.querySelector('#soundcloud_player');
@@ -71,21 +74,22 @@ $(document).ready(function() {
     });               
 
     $("#forwarButton").on("click", function(){
-      // console.log("next song on stack")
       playNext(widget);
     });
 
     $("#pauseButton").on("click", function(){
-      //  console.log("pause");
       widget.pause();
     });
 
+    // user clicked on an album image, get the data stored
+    // in the div and push it to the stack
     $("[id^='div']").on('click', function(){
       track = $(this).data();
       pushPlayList(track.uri, track.title.replace(/["']/g, ""), update_DB_playlist);
       updateSideBar();
     });
 
+    // open user info modal
     $("#userName").on('click', function(res){
       $('#userInfo').modal('show');
       data = JSON.parse(userAcctInfo);
@@ -95,9 +99,11 @@ $(document).ready(function() {
       $('#UDgenre').val(data.genre);
     });
 
+    // user info modal submit button
+    // send updated info to DB
     $("#userInfoForm").submit(function(e){
       e.preventDefault();
-      if (!$("#userInfoForm").valid()) return;
+      if (!$("#userInfoForm").valid()) return; //form is not valid
       updateInfo(
         $("#UDemail").val(),
         $("#UDgenre").val(),
@@ -107,7 +113,6 @@ $(document).ready(function() {
 
     $("#signupForm").submit(function(e){
       e.preventDefault();
-      console.log("got signup");
     });
 
     $("#loginForm").submit(function(e){
@@ -126,7 +131,8 @@ $(document).ready(function() {
         url: 'getData.php'
       });
       widget.pause();
-      setTimeout(function(){
+      // wait for server to clear session data
+      setTimeout(function(){ 
         shutdown();}, 1000);
     });
 
@@ -157,9 +163,10 @@ function search(searchTerm, overwrite, callback){
         $('#track'+divCounter+'-title').text(tracks[i].title);
         $('#div'+divCounter).data({ uri: tracks[i].uri, title: tracks[i].title});
         if(overwrite) 
-          playListStack.unshift({ uri: tracks[i].uri, title: tracks[i].title.replace(/["']/g, "")});
+          playListStack.unshift({ track: tracks[i].uri, title: tracks[i].title.replace(/["']/g, "")});
         divCounter++;
       }
+
       //get out of loop       
       if(divCounter == 11)
         i = tracks.length;
@@ -173,7 +180,8 @@ function search(searchTerm, overwrite, callback){
 /*
 Login a new user.  Send their info to server
 via ajax post. If successful we get back their
-info including their previous playlist in json.
+info including their previous playlist  as text
+then convert to json.
 */     
 function login (usr, pwd) {
   $('#loginSpinner').show();
@@ -200,15 +208,15 @@ function login (usr, pwd) {
     }
   }); 
   $('#loginSpinner').hide();       
-}, 1000);
+}, 500);
 };
 
 
 /*
 Sign up a new user.  Send their info to server
 via ajax post. If successful we get back their
-user name and genre to start the music player
-with.
+user name and genre to get them started with 
+a fresh playlist.
 */
 function signup (usr, email, pwd, genre, zip) {
    if (!$("#signupForm").valid()) return;       
@@ -239,6 +247,10 @@ function signup (usr, email, pwd, genre, zip) {
   });        
 };
 
+/*
+Send the updated playlist back to the DB as
+a text string.
+*/
 function update_DB_playlist(){
     //send post to DB to update playlist
       //check user info;
@@ -259,8 +271,6 @@ Called after a successful login or signup.
 Set up the main window by hiding and showing 
 specific divs.  Call search function to get 
 the player started. 
-
-TODO: add function or call to update the playlist
 */
 function startup(response){
             
@@ -285,6 +295,10 @@ function startup(response){
     search(response.genre, false, playNext);
 }
 
+/*
+If the user updated their info through the user info
+modal we send the updated data to the DB
+*/
 function updateInfo(email, genre, loc){
   var data = {
     Email: email,
@@ -305,8 +319,10 @@ function updateInfo(email, genre, loc){
   });        
 };
 
-//on click function for album art boxes
-// push new song to stack
+/*
+Called when a user click on album art.  Push
+the track data to the stack
+*/
 function pushPlayList(uri, text,  callback){
   //push to stack
   //update playlist in db
@@ -321,17 +337,20 @@ Pop the next track off the stack and play it
 */
 var playNext = function(widget, pause){
   size = playListStack.length-1;
-  if(playListStack[size-1] != "Null"){
+  if(playListStack[size-1] != null){
     widget.load(playListStack.pop().track+"&auto_play=true");
     updateSideBar();
   }
       if(pause){
-      console.log("this should be paused now");
-      widget.pause();
-    }
+        widget.pause();
+      }
+    //send updated playlist to server
     update_DB_playlist();
 }
 
+/*
+Update the playlist sidebar
+*/
 function updateSideBar(){
  // console.log(playListStack);
   count = 1;
@@ -346,17 +365,19 @@ function updateSideBar(){
   }
 }
 
+/*
+called after the shutdown request is sent to the server
+this restores the page back to the login and stop the player
+*/
 function shutdown(){
-  //clean up the page to bring it back
-  // to the login screen
   $('#mainContent').hide();
   $('#searchButton').hide();
   $('#loginButtons').show();
   $('#userName').hide();
   $('#controlButtons').hide();
+  //clear saved info
   userAcctInfo = null;
   playListStack = null;
   setTimeout(function(){
-    location.reload(true), 2000});
-
+    location.reload(true), 1000});
 }
