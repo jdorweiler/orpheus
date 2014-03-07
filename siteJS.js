@@ -202,7 +202,7 @@ function login (usr, pwd) {
     url: 'getData.php',
     datatype: 'json',
     success: function(res) {
-      if(res == "error")
+      if(res == "error" ||  $.isEmptyObject(res) == 1)
         $('#errorText').text('Error Logging In');
       else{
         startup(res);//get playlist from DB and start it
