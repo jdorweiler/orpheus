@@ -74,6 +74,11 @@
       .albumheader{
         padding-left: 25px;
       }
+      .art{
+        padding-left: 25px;
+        cursor: pointer; 
+        cursor: hand;
+      }
 
 
 
