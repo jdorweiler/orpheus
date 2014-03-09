@@ -81,6 +81,10 @@ $(document).ready(function() {
       widget.pause();
     });
 
+    $("#playButton").on("click", function(){
+      widget.play();
+    });
+
     // user clicked on an album image, get the data stored
     // in the div and push it to the stack
     $("[id^='div']").on('click', function(){

@@ -34,12 +34,9 @@
           <a class="navbar-brand" href="#"><i class="fa fa-signal fa-fw"></i> Orpheus Music Project</a>
         </div>
         <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
           <ul class="nav navbar-nav" id="controlButtons" style="display: none;">
             <li><i class="fa fa-pause fa-fw playerButtons" id="pauseButton" ></i></li>
+            <li><i class="fa fa-play fa-fw playerButtons" id="playButton"></i></li>
             <li><i class="fa fa-step-forward fa-fw playerButtons" id="forwarButton"></i></li>
           </ul>
 
