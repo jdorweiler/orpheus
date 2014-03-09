@@ -143,7 +143,6 @@
       </div><!--/row-->
     </div><!--/.container-->
  <!-- Button trigger modal -->
-</body>
 
 <form id="signupForm">
   <!-- Modal -->
@@ -273,4 +272,5 @@
     <script src="jquery.validate.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha3.js"></script>
+    </body>
 </html>

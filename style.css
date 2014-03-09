@@ -79,6 +79,11 @@
         cursor: pointer; 
         cursor: hand;
       }
+      .soundcloud_player{
+        width: 100%;
+        height: 90%;
+        frameborder: none;
+      }
 
 
 
