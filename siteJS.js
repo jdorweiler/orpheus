@@ -72,7 +72,7 @@ $(document).ready(function() {
     widget.getSounds(function(sounds) {
 
     });               
-
+ 
     $("#forwarButton").on("click", function(){
       playNext(widget);
     });
