@@ -35,8 +35,10 @@
       .playerButtons{
         color: #fff;
         padding-top: 10px;
-        text-shadow: 1px 1px 1px #ccc;
+        text-shadow: 2px 2px 2px #428BCA;
         font-size: 1.5em;
+        cursor: pointer; 
+        cursor: hand;
       }
       .userIcon{
         color: #fff;
