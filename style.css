@@ -38,7 +38,6 @@
         text-shadow: 2px 2px 2px #428BCA;
         font-size: 1.5em;
         cursor: pointer; 
-        cursor: hand;
       }
       .userIcon{
         color: #fff;
@@ -79,12 +78,10 @@
       .art{
         padding-left: 25px;
         cursor: pointer; 
-        cursor: hand;
       }
       .soundcloud_player{
         width: 100%;
         height: 90%;
-        frameborder: none;
       }
 
 
