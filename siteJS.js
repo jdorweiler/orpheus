@@ -78,10 +78,7 @@ $(document).ready(function() {
       playNext(widget);
     });
 
-    widget.getSounds(function(sounds) {
-
-    });               
- 
+     
     $("#forwarButton").on("click", function(){
       playNext(widget);
     });
@@ -102,6 +99,7 @@ $(document).ready(function() {
       updateSideBar();
     });
 
+    // album artwork clicks
     $("[id^='playlist']").on('click', function(){
       data = $(this).data();
       widget.load(data.track+"&auto_play=true");
