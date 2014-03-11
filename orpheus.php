@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="#">
+    <link rel="shortcut icon" href="favicon.ico" >
 
     <title>Orpheus</title>
 
@@ -43,7 +43,7 @@
       <div class="navbar-form navbar-right" id="searchButton" style="display: none;">
         <form class="navbar-search" id="searchForm">
         <input type="text" placeholder="search" class="form-control searchbox search-query" id="searchText">
-                <a class="btn btn-primary" href="#" id="userName"><i class="fa fa-user userIcon"></i></a>
+                <a class="btn btn-primary" href="#" id="userName"><i class="fa fa-user uesrIcon"></i></a>
         <a class="btn btn-primary" href="#" id="logout"><i class="fa fa-times-circle userIcon">Logout</i></a> 
         </form>
     </div>
@@ -149,13 +149,13 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h3 class="modal-title">Sign Up</h3>
-          <div id="errorTextSignup"></div>
+          <div class="error" id="errorTextSignup"></div>
         </div>
         <div class="modal-body form-horizontal">
           <div class="divDialogElements form-group">
             <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-            <input class="form-control required name" id="name" name="name" type="text" placeholder="User Name"/>
+            <input class="form-control required name" id="name" name="name" type="text" placeholder="User Name (min 5 characters)"/>
           </div>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
@@ -163,7 +163,7 @@
           </div>
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-            <input class="form-control required Pass" id="Pass" name="Pass" type="password" placeholder="password"/>
+            <input class="form-control required Pass" id="Pass" name="Pass" type="password" placeholder="password (min 5 characters)"/>
           </div>
             <h3>Just two things to help us find you great music</h3>
           <div class="input-group">
@@ -200,7 +200,7 @@
           <div id="loginSpinner" style="display: none;">
           <h4 > Logging in <i class="fa fa-cog fa-spin"></i></h4>
         </div>
-          <div id="errorText"></div>
+          <div class="error" id="errorText"></div>
         </div>
         <div class="modal-body">
            <div class="divDialogElements">

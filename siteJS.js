@@ -25,11 +25,20 @@ $(document).ready(function() {
         }
       });
     });
+    //borrowed from stackoverflow post:
+    //https://stackoverflow.com/questions/13785529/add-regex-to-jquery-validate
+    //removes special chars from user input.
+    $.validator.addMethod("regx", function(value, element, regexpr) {          
+      return regexpr.test(value);
+    }, "Please enter a valid pasword.");
 
+    //validator rules
     jQuery.validator.addClassRules({
        name: {
         required: true,
-        minlength: 5
+        minlength: 5,
+        maxlength: 12,
+        regx: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/
       },
       zip: {
         required: true,
@@ -213,6 +222,9 @@ function login (usr, pwd) {
         startup(res);//get playlist from DB and start it
         userAcctInfo = res;
       }
+    },
+    error: function(){
+      $('#errorTextSignup').text('Something went wrong. Try again');
     }
   }); 
   $('#loginSpinner').hide();       
@@ -251,7 +263,10 @@ function signup (usr, email, pwd, genre, zip) {
       else
         startup(res); // start player
         userAcctInfo = res;
-      }
+      },
+    error: function(){
+      $('#errorTextSignup').text('Something went wrong. Try again');
+    }
   });        
 };
 
@@ -298,11 +313,9 @@ function startup(response){
   if(response.playlist == null){
     //fill playlist based on genre
     search(response.genre, true, playNext);
-    console.log("in null playlist");
   }
   else{
     playListStack = $.parseJSON(response.playlist);
-    console.log("parse playlist " + playListStack.track);
     search(response.genre, false, playNext);
   }
 }
