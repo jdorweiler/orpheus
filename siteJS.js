@@ -30,7 +30,7 @@ $(document).ready(function() {
     //removes special chars from user input.
     $.validator.addMethod("regx", function(value, element, regexpr) {          
       return regexpr.test(value);
-    }, "Please enter a valid pasword.");
+    }, "Please enter a valid user name.");
 
     //validator rules
     jQuery.validator.addClassRules({
@@ -38,7 +38,7 @@ $(document).ready(function() {
         required: true,
         minlength: 5,
         maxlength: 12,
-        regx: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/
+        regx: /^[A-Za-z0-9]*$/
       },
       zip: {
         required: true,
