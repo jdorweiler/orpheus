@@ -144,7 +144,7 @@
 		foreach($decoded_json as $song){
 
             // update the song table with any new songs
-			if (!($mysqli->query("INSERT INTO songs values('', $song['title'], $song['track'])"))){
+			if (!($mysqli->query("UPDATE song SET name=$song->title, url=$song->track"))){
 	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
             $song_id = NULL;
