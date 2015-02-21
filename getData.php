@@ -152,13 +152,13 @@
 	// user needs to be validates or is logged in. 
 	if($type == 1){
 	    //Get data to validate password
-		if (!($stmt = $mysqli->prepare("SELECT user, Pass FROM users WHERE name='$user'"))) {
+		if (!($stmt = $mysqli->prepare("SELECT id, user, pass FROM users WHERE name='$user'"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
 	    	echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
-		if (!$stmt->bind_result($out_user, $out_pass)) {
+		if (!$stmt->bind_result($id, $out_user, $out_pass)) {
 	    	echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 		}
 		if($stmt->fetch()) 
@@ -179,7 +179,9 @@
 		if($stmt->fetch())
 			echo json_encode(array( 'user' => $out_user, 'email' => $email, 
 				'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
-		$_SESSION["username"] = $id;
+        
+        // send the username back to frontend
+        $_SESSION["username"] = $id;
 	
 		 /* close statement */
 	    $stmt->close();
