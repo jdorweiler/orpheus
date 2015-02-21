@@ -70,7 +70,7 @@
 	 // add user to database then send their data back to get player started.
 	if($type == 2){
 
-		if (!($stmt = $mysqli->prepare("SELECT name, email FROM users WHERE user='$user' LIMIT 1"))) {
+		if (!($stmt = $mysqli->prepare("SELECT name, email FROM users WHERE name='$user' LIMIT 1"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
