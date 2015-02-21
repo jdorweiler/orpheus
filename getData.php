@@ -139,12 +139,12 @@
        	 	// update the user_playlist db with the new playlist
 		    echo "playlist: $playlist";      
         	// deserialize json
-        	$decoded_json = json_decode($playlist);
+        	$decoded_json = json_decode($playlist, true);
 
 		foreach($decoded_json as $song){
 
             // update the song table with any new songs
-			if (!($mysqli->query("UPDATE song SET name=$song->title, url=$song->track"))){
+			if (!($mysqli->query("INSERT INTO songs values('', $song[title], $song[track])"))){
 	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
             $song_id = NULL;
