@@ -70,7 +70,7 @@
 	 // add user to database then send their data back to get player started.
 	if($type == 2){
 
-		if (!($stmt = $mysqli->prepare("SELECT user, email FROM users WHERE user='$user' LIMIT 1"))) {
+		if (!($stmt = $mysqli->prepare("SELECT name, email FROM users WHERE user='$user' LIMIT 1"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
@@ -106,7 +106,7 @@
 			exit();
 		}
 
-		if (!($mysqli->query("INSERT INTO users(user,pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
+		if (!($mysqli->query("INSERT INTO users(name,pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
 		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
 			echo json_encode(array( 'user' => $user, 'email' => $email, 
