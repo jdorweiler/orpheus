@@ -153,9 +153,15 @@
             
             $song_id = NULL;
             // check to see if the song in there already
-            $stmt = $mysqli->prepare("Select id from songs where url='$url' and name='$title'");
-            $stmt->execute();
+            if(!($mysqli->prepare("Select id from songs where url='$url' and name='$title'")){
+                echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+            );
+            if (!$stmt->execute()) {   
+                echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;  
+            }
+
             $stmt->bind_result($song_id);
+            $stmt->fetch();
 	        $stmt->close();
 
             // add the new song to the songs table
