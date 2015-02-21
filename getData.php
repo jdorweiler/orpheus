@@ -152,7 +152,7 @@
 	// user needs to be validates or is logged in. 
 	if($type == 1){
 	    //Get data to validate password
-		if (!($stmt = $mysqli->prepare("SELECT user, Pass FROM soundDB WHERE user='$user'"))) {
+		if (!($stmt = $mysqli->prepare("SELECT user, Pass FROM users WHERE name='$user'"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
