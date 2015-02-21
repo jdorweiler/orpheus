@@ -153,9 +153,9 @@
             
             $song_id = NULL;
             // check to see if the song in there already
-            if(!($mysqli->prepare("Select id from songs where url='$url' and name='$title'")){
+            if(!($stmt = $mysqli->prepare("Select id from songs where url='$url' and name='$title'"))){
                 echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-            );
+}           
             if (!$stmt->execute()) {   
                 echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;  
             }
@@ -174,10 +174,11 @@
                 $stmt = $mysqli->prepare("Select id from songs where url='$url' and name='$title'");
                 $stmt->execute();
                 $stmt->bind_result($song_id);
+$stmt->fetch(); 
 	            $stmt->close();
             }
 
-            if (!($mysqli->query("INSERT INTO  userPlaylist values('', $id', '$song_id'"))){
+            if (!($mysqli->query("INSERT INTO  userPlaylist values('$id', '$song_id')"))){
 	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
 		}
