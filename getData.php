@@ -45,7 +45,7 @@
     			echo 0;
     			exit();
     		}
-    		$user = $_SESSION["username"];
+    		$id = $_SESSION["username"];
     	}
 
     	if($type == 6){
@@ -133,7 +133,7 @@
     // push updated playlist to user_playlist
 	if($type == 3){
         $id = $_SESSION["username"];
-        echo "updating playlist for user: $user";
+        echo "updating playlist for user: $id";
 
         // play list is a json string of songs containing the users current playlist 
         // update the user_playlist db with the new playlist
@@ -142,7 +142,7 @@
         $decoded_json = json_decode($playlist);
         echo "Decoded json $decoded_json";
 
-		if (!($mysqli->query("UPDATE users SET playList='$playlist' WHERE user='$user'"))){
+		if (!($mysqli->query("UPDATE users SET playList='$playlist' WHERE name='$user'"))){
 		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
 			exit();
@@ -173,13 +173,13 @@
 
 	    // we have a good password or user is logged in already
 	if($passCheck == 1 || $type == 5){
-		$stmt = $mysqli->prepare("SELECT user, email, location, genre, playList FROM soundDB WHERE user='$user' LIMIT 1");
+		$stmt = $mysqli->prepare("SELECT id, user, email, location, genre FROM users WHERE id='$id' LIMIT 1");
 		$stmt->execute();
-		$stmt->bind_result($out_user, $email, $location, $genre, $playlist);
+		$stmt->bind_result($id, $out_user, $email, $location, $genre);
 		if($stmt->fetch())
 			echo json_encode(array( 'user' => $out_user, 'email' => $email, 
 				'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
-		$_SESSION["username"] = $out_user;
+		$_SESSION["username"] = $id;
 	
 		 /* close statement */
 	    $stmt->close();
@@ -191,8 +191,8 @@
 	}
 
 	if($type == 7){
-		$user = $_SESSION["username"];
-		if (!($mysqli->query("UPDATE soundDB SET email='$email',genre='$genre',location='$location' WHERE user='$user'"))){
+		$id = $_SESSION["username"];
+		if (!($mysqli->query("UPDATE users SET email='$email',genre='$genre',location='$location' WHERE id='$id'"))){
 		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
 			exit();
