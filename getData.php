@@ -215,7 +215,7 @@ $stmt->fetch();
         $stmt->fetch();
 	    $stmt->close();
 
-		if (!($stmt = $mysqli->prepare("SELECT S.title, S.url from userPlaylist PL on PL.user_id=$id inner join songs S on S.id = PL.song_id"))) {
+		if (!($stmt = $mysqli->prepare("SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
 	       echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
