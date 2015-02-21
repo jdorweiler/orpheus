@@ -132,20 +132,23 @@
 
     // push updated playlist to user_playlist
 	if($type == 3){
-        $id = $_SESSION["username"];
-        echo "updating playlist for user: $id";
+        	$id = $_SESSION["username"];
+        	echo "updating playlist for user: $id";
 
-        // play list is a json string of songs containing the users current playlist 
-        // update the user_playlist db with the new playlist
-        
-        // deserialize json
-        $decoded_json = json_decode($playlist);
-        echo "Decoded json $decoded_json";
+        	// play list is a json string of songs containing the users current playlist 
+       	 	// update the user_playlist db with the new playlist
+		echo "playlist: $playlist";      
+        	// deserialize json
+        	$decoded_json = json_decode($playlist);
 
-		if (!($mysqli->query("UPDATE users SET playList='$playlist' WHERE name='$user'"))){
-		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		foreach($decoded_json as $song){
+
+			if (!($mysqli->query("UPDATE SET '"))){
+	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
 			exit();
+		}
+
 	}
 
 
