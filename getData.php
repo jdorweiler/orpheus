@@ -143,20 +143,23 @@
 
 		foreach($decoded_json as $song){
 
+		$title = $song["title"];
+		$url = $song["track"];
             // update the song table with any new songs
-			if (!($mysqli->query("INSERT INTO songs values('', $song[title], $song[track])"))){
+			if (!($mysqli->query("INSERT INTO songs values('', '$title', '$url')"))){
 	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
+echo "Inserted song\n";
             $song_id = NULL;
             // get the song ID
-            $stmt = $mysqli->prepare("Select song_id from songs where url=$song->title and name=$song->track");
+            $stmt = $mysqli->prepare("Select id from songs where url='$url' and name='$title'");
             $stmt->execute();
             $stmt->bind_result($song_id);
 
-			if (!($mysqli->query("UPDATE userPlaylist SET song_id=$song_ide, user_id=$id"))){
+	    $stmt->close();
+			if (!($mysqli->query("UPDATE userPlaylist SET song_id='$song_id', user_id='$id'"))){
 	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
-            exit();
 		}
 
 	}
