@@ -212,10 +212,26 @@ $stmt->fetch();
 		$stmt = $mysqli->prepare("SELECT id, name, email, location, genre FROM users WHERE id='$id' LIMIT 1");
 		$stmt->execute();
 		$stmt->bind_result($id, $out_user, $email, $location, $genre);
-		if($stmt->fetch())
+        $stmt->fetch();
+	    $stmt->close();
+
+		if (!($stmt = $mysqli->prepare("SELECT S.title, S.url from userPlaylist PL on PL.user_id=$id inner join songs S on S.id = PL.song_id"))) {
+	       echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		if (!$stmt->execute()) {
+	         echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		if (!$stmt->bind_result($playlist)) {
+		    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+	    }
+	    $stmt->fetch(); 
+	    $stmt->close();
+
+        echo var_dump($playlist);
+
 			echo json_encode(array( 'user' => $out_user, 'email' => $email, 
 				'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
-        
+              
         // send the username back to frontend
         $_SESSION["username"] = $id;
 	
