@@ -137,16 +137,26 @@
 
         	// play list is a json string of songs containing the users current playlist 
        	 	// update the user_playlist db with the new playlist
-		echo "playlist: $playlist";      
+		    echo "playlist: $playlist";      
         	// deserialize json
         	$decoded_json = json_decode($playlist);
 
 		foreach($decoded_json as $song){
 
-			if (!($mysqli->query("UPDATE SET '"))){
+            // update the song table with any new songs
+			if (!($mysqli->query("UPDATE song SET name=$song->title, url=$song->track"))){
 	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-			}
-			exit();
+            }
+            $song_id = NULL;
+            // get the song ID
+            $stmt = $mysqli->prepare("Select song_id from songs where url=$song->title and name=$song->track");
+            $stmt->execute();
+            $stmt->bind_result($song_id);
+
+			if (!($mysqli->query("UPDATE userPlaylist SET song_id=$song_ide, user_id=$id"))){
+	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+            }
+            exit();
 		}
 
 	}
