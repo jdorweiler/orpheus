@@ -152,7 +152,7 @@
 	// user needs to be validates or is logged in. 
 	if($type == 1){
 	    //Get data to validate password
-		if (!($stmt = $mysqli->prepare("SELECT id, user, pass FROM users WHERE name='$user'"))) {
+		if (!($stmt = $mysqli->prepare("SELECT id, name, pass FROM users WHERE name='$user'"))) {
 	    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
@@ -173,7 +173,7 @@
 
 	    // we have a good password or user is logged in already
 	if($passCheck == 1 || $type == 5){
-		$stmt = $mysqli->prepare("SELECT id, user, email, location, genre FROM users WHERE id='$id' LIMIT 1");
+		$stmt = $mysqli->prepare("SELECT id, name, email, location, genre FROM users WHERE id='$id' LIMIT 1");
 		$stmt->execute();
 		$stmt->bind_result($id, $out_user, $email, $location, $genre);
 		if($stmt->fetch())
