@@ -141,27 +141,40 @@
         	// deserialize json
         	$decoded_json = json_decode($playlist, true);
 
-		foreach($decoded_json as $song){
-
-		$title = $song["title"];
-		$url = $song["track"];
-            // update the song table with any new songs
-			if (!($mysqli->query("INSERT INTO songs values('', '$title', '$url')"))){
+            // we are going to rebuild the uses playlist table so delete the entries first
+            if (!($mysqli->query("DELETE FROM userPlaylist where user_id=$id"))){
 	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
-echo "Inserted song\n";
+
+		foreach($decoded_json as $song){
+
+		    $title = $song["title"];
+		    $url = $song["track"];
+            
             $song_id = NULL;
-            // get the song ID
+            // check to see if the song in there already
             $stmt = $mysqli->prepare("Select id from songs where url='$url' and name='$title'");
             $stmt->execute();
             $stmt->bind_result($song_id);
+	        $stmt->close();
 
-	    $stmt->close();
-			if (!($mysqli->query("UPDATE userPlaylist SET song_id='$song_id', user_id='$id'"))){
+            // add the new song to the songs table
+            if(!$song_id){
+                // update the song table with any new songs
+			    if (!($mysqli->query("INSERT INTO songs values('', '$title', '$url')"))){
+	    			    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+                }
+                echo "Inserted song $title\t $url\n";
+                $stmt = $mysqli->prepare("Select id from songs where url='$url' and name='$title'");
+                $stmt->execute();
+                $stmt->bind_result($song_id);
+	            $stmt->close();
+            }
+
+            if (!($mysqli->query("INSERT INTO  userPlaylist values('', $id', '$song_id'"))){
 	    			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
             }
 		}
-
 	}
 
 
