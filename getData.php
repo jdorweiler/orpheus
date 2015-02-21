@@ -9,6 +9,7 @@
         echo "Failed to connect to mysql: (" . $mysqli->errno . ")" . $mysqli->connect_error;
     } 
 
+    $id = NULL;
     $user = NULL;
     $type = NULL;
     $pass = NULL;
@@ -106,20 +107,42 @@
 			exit();
 		}
 
+        // insert a new user in to the users table
+        // this happens when a new user signs up
 		if (!($mysqli->query("INSERT INTO users(name,pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
 		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
-			}
-			echo json_encode(array( 'user' => $user, 'email' => $email, 
-				'location' => $location, 'genre' => $genre));
-			$mysqli->close();
-			$_SESSION["username"] = $user;
-			exit();
+        }
+
+        // for frontend logging
+		echo json_encode(array( 'user' => $user, 'email' => $email, 'location' => $location, 'genre' => $genre));
+
+        // get the id for the new user 
+        if (!($mysqli->query("SELECT id from users where name=$user"))) {
+            echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+        }
+
+        // bind the id and return it as a session username
+        if (!($stmt->bind_result($id))){
+            echo "Binding user id failedi (" . $stmt->errno . ") " . $stmt->error;
+        }
+		$mysqli->close();
+		$_SESSION["username"] = $id;
+		exit();
 	}
 
-	// push the playlist stack back to the database.
+    // push updated playlist to user_playlist
 	if($type == 3){
-		$user = $_SESSION["username"];
-		if (!($mysqli->query("UPDATE soundDB SET playList='$playlist' WHERE user='$user'"))){
+        $id = $_SESSION["username"];
+        echo "updating playlist for user: $user";
+
+        // play list is a json string of songs containing the users current playlist 
+        // update the user_playlist db with the new playlist
+        
+        // deserialize json
+        $decoded_json = json_decode($playlist);
+        echo "Decoded json $decoded_json";
+
+		if (!($mysqli->query("UPDATE users SET playList='$playlist' WHERE user='$user'"))){
 		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
 			exit();
