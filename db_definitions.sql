@@ -5,6 +5,8 @@ CREATE TABLE users (
   name VARCHAR(255) NOT NULL,
   location VARCHAR(255) NOT NULL,
   genre VARCHAR(255) NOT NULL,
+  email TEXT, 
+  pass TEXT
   PRIMARY KEY  (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -106,7 +106,7 @@
 			exit();
 		}
 
-		if (!($mysqli->query("INSERT INTO soundDB(user,Pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
+		if (!($mysqli->query("INSERT INTO users(user,pass,email,location,genre) VALUES ('$user','$pass','$email','$location','$genre')"))) {
 		    	echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 			}
 			echo json_encode(array( 'user' => $user, 'email' => $email, 
