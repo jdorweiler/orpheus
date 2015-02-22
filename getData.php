@@ -218,12 +218,11 @@ $stmt->fetch();
         $titles = NULL;
         $urls = NULL;
 
-		if (!($stmt = $mysqli->prepare("SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
-	       echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
 		}
-		if (!$stmt->execute()) {
-	         echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
-		}
+//		if (!$stmt->execute()) {
+//	         echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
+//		}
 //		if (!$stmt->bind_result($titles, $urls)) {
 //		    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
  //       }
