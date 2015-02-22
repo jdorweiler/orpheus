@@ -215,19 +215,23 @@ $stmt->fetch();
         $stmt->fetch();
 	    $stmt->close();
 
+        $titles = NULL;
+        $urls = NULL;
+
 		if (!($stmt = $mysqli->prepare("SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
 	       echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
 	         echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
-		if (!$stmt->bind_result($playlist)) {
+		if (!$stmt->bind_result($titles, $urls)) {
 		    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 	    }
 	    $stmt->fetch(); 
 	    $stmt->close();
 
-        echo var_dump($playlist);
+        echo "titles: $titles";
+        echo "urls : $urls";
 
 			echo json_encode(array( 'user' => $out_user, 'email' => $email, 
 				'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
