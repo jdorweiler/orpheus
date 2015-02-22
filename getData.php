@@ -226,21 +226,17 @@ $stmt->fetch();
 		}
 		if (!$stmt->bind_result($titles, $urls)) {
 		    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-	    }
-	    $stmt->fetch(); 
+        }
+
+        $rows =  array();
+
+        while($r = mysqli_fetch_assoc($stmt)){
+            $rows[] = $r;
+        }
+
+        echo json_encode($rows);
+
 	    $stmt->close();
-
-        echo "titles: $titles";
-        echo "urls : $urls";
-
-        $playlist = "[{}]";
-  //      $json = array();
- //       foreach($titles as $t){
- //           $json{$titles[$t]} = $urls[$t];
-  //      }
-
-  //      var_dump($json);
-
 			echo json_encode(array( 'user' => $out_user, 'email' => $email, 
 				'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
               
