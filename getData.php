@@ -233,12 +233,12 @@ $stmt->fetch();
         echo "titles: $titles";
         echo "urls : $urls";
 
-        $json = array();
-        foreach($titles as $t){
-            $json{$titles[$t]} = $urls[$t];
-        }
+  //      $json = array();
+ //       foreach($titles as $t){
+ //           $json{$titles[$t]} = $urls[$t];
+  //      }
 
-        var_dump($json);
+  //      var_dump($json);
 
 			echo json_encode(array( 'user' => $out_user, 'email' => $email, 
 				'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
