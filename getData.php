@@ -233,6 +233,7 @@ $stmt->fetch();
         echo "titles: $titles";
         echo "urls : $urls";
 
+        $playlist = "[{}]";
   //      $json = array();
  //       foreach($titles as $t){
  //           $json{$titles[$t]} = $urls[$t];
