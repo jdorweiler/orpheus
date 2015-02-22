@@ -220,12 +220,6 @@ $stmt->fetch();
 
 		if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
 		}
-//		if (!$stmt->execute()) {
-//	         echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
-//		}
-//		if (!$stmt->bind_result($titles, $urls)) {
-//		    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
- //       }
 
         $rows =  array();
 
@@ -233,11 +227,11 @@ $stmt->fetch();
             $rows[] = $r;
         }
 
-        echo json_encode($rows);
+        $playlist = json_encode($rows);
 
 	    $stmt->close();
-			echo json_encode(array( 'user' => $out_user, 'email' => $email, 
-				'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
+		
+        echo json_encode(array( 'user' => $out_user, 'email' => $email, 'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
               
         // send the username back to frontend
         $_SESSION["username"] = $id;
