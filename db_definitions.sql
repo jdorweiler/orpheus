@@ -14,9 +14,9 @@ CREATE TABLE users (
 CREATE TABLE songs(
   id INT AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
-  url text NOT NULL,
+  url VARCHAR(255) NOT NULL,
   PRIMARY KEY  (id),
-  CONSTRAINT unique(name)
+  CONSTRAINT unique(name, url)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- user playlist
