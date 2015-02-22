@@ -224,9 +224,9 @@ $stmt->fetch();
 		if (!$stmt->execute()) {
 	         echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
-		if (!$stmt->bind_result($titles, $urls)) {
-		    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
+//		if (!$stmt->bind_result($titles, $urls)) {
+//		    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+ //       }
 
         $rows =  array();
 
