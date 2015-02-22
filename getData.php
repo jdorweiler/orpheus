@@ -245,9 +245,6 @@ $stmt->fetch();
               
         // send the username back to frontend
         $_SESSION["username"] = $id;
-	
-		 /* close statement */
-	    $stmt->close();
 
 		/* close connection */
 		$mysqli->close();
