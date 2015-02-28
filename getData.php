@@ -148,8 +148,8 @@
 
 		foreach($decoded_json as $song){
 
-		    $title = $song["title"];
-		    $url = $song["track"];
+		    $title = $song["name"];
+		    $url = $song["url"];
             
             $song_id = NULL;
             // check to see if the song in there already
