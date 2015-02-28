@@ -258,8 +258,10 @@ function signup (usr, email, pwd, genre, zip) {
         $('#errorTextSignup').text('Username is already taken');
       else if(res == "error 2")
         $('#errorTextSignup').text('Email is already in use');
-      else
+      else{
+        response.playlist = unescape(response.playlist);
         startup(res); // start player
+      }
         userAcctInfo = res;
       },
     error: function(){
