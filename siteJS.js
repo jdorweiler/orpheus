@@ -352,7 +352,7 @@ the track data to the stack
 function pushPlayList(uri, text,  callback){
   //push to stack
   //update playlist in db
-  playListStack.push({ track: uri, title: text});
+  playListStack.push({ url: uri, name: text});
   if(callback){
     callback();
   }
@@ -384,7 +384,7 @@ function updateSideBar(){
       $("#playlist"+count).text(playListStack[i-1].name);
       Playtrack = playListStack[i-1].url;
       Playtitle =playListStack[i-1].name;
-      $("#playlist"+count).data({ url: Playtrack, title: Playtitle});
+      $("#playlist"+count).data({ url: Playtrack, name: Playtitle});
     count++;
   }
   //update empty playlist spots
