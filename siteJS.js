@@ -96,14 +96,14 @@ $(document).ready(function() {
     // in the div and push it to the stack
     $("[id^='div']").on('click', function(){
       data = $(this).data();
-      pushPlayList(data.track, data.title.replace(/["']/g, ""), update_DB_playlist);
+      pushPlayList(data.url, data.name.replace(/["']/g, ""), update_DB_playlist);
       updateSideBar();
     });
 
     // album artwork clicks
     $("[id^='playlist']").on('click', function(){
       data = $(this).data();
-      widget.load(data.track+"&auto_play=true");
+      widget.load(data.url+"&auto_play=true");
     });
 
     // open user info modal
