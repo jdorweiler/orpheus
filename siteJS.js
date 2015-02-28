@@ -19,6 +19,7 @@ $(document).ready(function() {
         datatype: 'json',
         success: function(res) {
           if(res != 0){
+            res.playlist = unescape(res.playlist);
             startup(res);
             userAcctInfo = res;
           }
@@ -177,9 +178,9 @@ function search(searchTerm, overwrite, callback){
                   
         $('#track'+divCounter+'-img').attr('src', tracks[i].artwork_url); //update album image and force browser reload of images.
         $('#track'+divCounter+'-title').text(tracks[i].title);
-        $('#div'+divCounter).data({ track: tracks[i].uri, title: tracks[i].title});
+        $('#div'+divCounter).data({ url: tracks[i].uri, name: tracks[i].title});
         if(overwrite) 
-          playListStack.unshift({ track: tracks[i].uri, title: tracks[i].title.replace(/["']/g, "")});
+          playListStack.unshift({ url: tracks[i].uri, name: tracks[i].title.replace(/["']/g, "")});
         divCounter++;
       }
 
@@ -217,6 +218,7 @@ function login (usr, pwd) {
       if(res == "error" ||  $.isEmptyObject(res) == 1)
         $('#errorText').text('Error Logging In');
       else{
+        res.playlist = unescape(res.playlist);
         startup(res);//get playlist from DB and start it
         userAcctInfo = res;
       }
@@ -362,7 +364,7 @@ Pop the next track off the stack and play it
 var playNext = function(widget, pause){
   size = playListStack.length-1;
   if(playListStack[size-1] != null){
-    widget.load(playListStack.pop().track+"&auto_play=true");
+    widget.load(playListStack.pop().url+"&auto_play=true");
     updateSideBar();
   }
       if(pause){
@@ -379,10 +381,10 @@ function updateSideBar(){
   count = 1;
   //update playlist titles
   for(i = playListStack.length; i > 0; i--){
-      $("#playlist"+count).text(playListStack[i-1].title);
-      Playtrack = playListStack[i-1].track;
-      Playtitle =playListStack[i-1].title;
-      $("#playlist"+count).data({ track: Playtrack, title: Playtitle});
+      $("#playlist"+count).text(playListStack[i-1].name);
+      Playtrack = playListStack[i-1].url;
+      Playtitle =playListStack[i-1].name;
+      $("#playlist"+count).data({ url: Playtrack, title: Playtitle});
     count++;
   }
   //update empty playlist spots
