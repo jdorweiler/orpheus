@@ -72,7 +72,7 @@
         while($r = mysqli_fetch_asssoc($stmt){
             $rows[] = $r;
         }
-        echo $playlist = json_encode(array( 'user' => $out_user, 'email' => $email, 'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
+        echo $playlist = json_encode(array('playlist' => $playlist));
     }
 
 
