@@ -50,14 +50,31 @@
 		    }
 		    $stmt->fetch();
             $mysqli->close();
-                
-            
-                exit();
+            exit();
         
         } 
         else {
             // just getting the playlists, nothing to add
+            get_user_playlist($to_subscribe);
             exit();
         }
+    }
+
+    // return the playlist for a user
+    function get_user_playlists( $id ) {
+
+        $rows = array();
+
+        if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
+            echo "gettting user playlist failed"
+        }
+
+        while($r = mysqli_fetch_asssoc($stmt){
+            $rows[] = $r;
+        }
+        echo $playlist = json_encode(array( 'user' => $out_user, 'email' => $email, 'location' => $location, 'genre' => $genre, 'playlist' => $playlist));
+    }
+
+
 
 ?>
