@@ -30,7 +30,7 @@
 
         $stmt->close();
 
-        echo  json_encode(array(users => $users));
+        echo  json_encode(array('users' => $users));
 
 
         $mysqli->close();
