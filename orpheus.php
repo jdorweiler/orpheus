@@ -44,6 +44,7 @@
         <form class="navbar-search" id="searchForm">
         <input type="text" placeholder="search" class="form-control searchbox search-query" id="searchText">
                 <a class="btn btn-primary" href="#" id="userName"><i class="fa fa-user uesrIcon"></i></a>
+                <a class="btn btn-primary" href="#" id="playListButton"><i class="fa fa-user uesrIcon"></i></a>
         <a class="btn btn-primary" href="#" id="logout"><i class="fa fa-times-circle userIcon">Logout</i></a> 
         </form>
     </div>
@@ -262,7 +263,20 @@
   <!-- /.modal -->
 </form>
 
-    <!-- Bootstrap core JavaScript
+  <!-- user playlist Modal -->
+  <div class="modal fade" id="playlistinfo" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-success" id="signupModalButton" onclick="signup(
+              document.getElementById('name').value, document.getElementById('email').value, ;">
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+   </div><!-- /.modal -->
+    
+<!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://w.soundcloud.com/player/api.js"></script>
