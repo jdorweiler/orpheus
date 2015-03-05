@@ -3,6 +3,22 @@
 	ini_set('display_errors', 'On');
 	include 'password.php';
 
+    // return the playlist for a user
+    function get_user_playlists( $id ) {
+
+        $rows = array();
+
+        if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
+            echo "gettting user playlist failed";
+        }
+
+        while($r = mysqli_fetch_asssoc($stmt)){
+            $rows[] = $r;
+        }
+        echo $playlist = json_encode(array('playlist' => $playlist));
+    }
+
+
 	// open the database
 	$mysqli = new mysqli("oniddb.cws.oregonstate.edu", "dorweilj-db", $myPWD, "dorweilj-db");
 	if($mysqli->connect_errno){
@@ -59,22 +75,6 @@
             exit();
         }
     }
-
-    // return the playlist for a user
-    function get_user_playlists( $id ) {
-
-        $rows = array();
-
-        if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
-            echo "gettting user playlist failed";
-        }
-
-        while($r = mysqli_fetch_asssoc($stmt)){
-            $rows[] = $r;
-        }
-        echo $playlist = json_encode(array('playlist' => $playlist));
-    }
-
 
 
 ?>
