@@ -353,7 +353,7 @@ function updateInfo(email, genre, loc){
         // update the playlits in the modal
         console.log("update playlist modal");
       }
-  )};
+  });
 };
 
 /*
