@@ -248,6 +248,8 @@
             <span class="input-group-addon"><i class="fa fa-map-marker fa-fw"></i></span>
             <input class="form-control required zip" id="UDzip" name="zip" type="text" placeholder="Zip Code"/>
           </div>
+          <div class="modal-content subscribed_playlists">
+          </div>
             </div>
           </div>
         </div>

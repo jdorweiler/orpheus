@@ -342,7 +342,18 @@ function updateInfo(email, genre, loc){
     success: function(res){
      // console.log("DB updated")
     }
-  });        
+  }); 
+
+  // get the users playlist info
+  $.ajax({
+    type: "POST",
+      url: 'sharePlaylist.php',
+      dataType: "json",
+      success: function(res){
+        // update the playlits in the modal
+        console.log("update playlist modal");
+      }
+  )};
 };
 
 /*
