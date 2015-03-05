@@ -116,6 +116,14 @@ $(document).ready(function() {
       $('#UDgenre').val(data.genre);
     });
 
+    $("playListButton").on('click', function(res){
+        // get the playlist info
+        playlist = getPlayLists();
+        $('#playlistinfo').modal('show');
+
+    }
+
+
     // user info modal submit button
     // send updated info to DB
     $("#userInfoForm").submit(function(e){
@@ -344,6 +352,11 @@ function updateInfo(email, genre, loc){
     }
   }); 
 
+};
+
+function getPlayLists(){
+
+   var playlists = '';
   // get the users playlist info
   $.ajax({
     type: "POST",
@@ -352,9 +365,13 @@ function updateInfo(email, genre, loc){
       success: function(res){
         // update the playlits in the modal
         console.log("update playlist modal");
+        playlists = res;
       }
   });
-};
+
+  return playlists;
+
+}
 
 /*
 Called when a user click on album art.  Push

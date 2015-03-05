@@ -44,7 +44,7 @@
         <form class="navbar-search" id="searchForm">
         <input type="text" placeholder="search" class="form-control searchbox search-query" id="searchText">
                 <a class="btn btn-primary" href="#" id="userName"><i class="fa fa-user uesrIcon"></i></a>
-                <a class="btn btn-primary" href="#" id="playListButton"><i class="fa fa-user uesrIcon"></i></a>
+                <a class="btn btn-primary" href="#" id="playListButton"><i class="fa fa-user uesrIcon">See Playlists</i></a>
         <a class="btn btn-primary" href="#" id="logout"><i class="fa fa-times-circle userIcon">Logout</i></a> 
         </form>
     </div>
