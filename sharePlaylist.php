@@ -11,12 +11,12 @@
 
 	if($_SERVER['REQUEST_METHOD'] == "POST"){
 		$type = $_POST['type'];
-        $user = $_POST["user"];
+        $user = $_SESSION["username"];
         $to_subscribe = $_POST['toSub'];
 
         ///  get the playlists that the user is subscribed to
         $playlists = NULL;
-		if (!($stmt = $mysqli->prepare("SELECT subscribed_id FROM subedPlaylist WHERE user_id='$user'"))) {
+		if (!($stmt = $mysqli->prepare("SELECT subscribed_id FROM subedPlaylist WHERE subed_user_id='$user'"))) {
 	        echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
