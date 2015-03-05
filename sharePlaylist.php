@@ -29,11 +29,11 @@
         $mysqli->close();
         
         // subscribe the user to a new playlist
-        if($type eq "subscribe"){
+        if( strcmp($type, "subscribe") == 0){
             // loop through the playlists and bail if we see
             // the same subscription
             foreach($playlists as $playlist){
-                if($playlists eq $user){
+                if( strcmp($playlists, $user) == 0){
                     exit();
                 }
             }
@@ -66,10 +66,10 @@
         $rows = array();
 
         if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
-            echo "gettting user playlist failed"
+            echo "gettting user playlist failed";
         }
 
-        while($r = mysqli_fetch_asssoc($stmt){
+        while($r = mysqli_fetch_asssoc($stmt)){
             $rows[] = $r;
         }
         echo $playlist = json_encode(array('playlist' => $playlist));
