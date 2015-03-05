@@ -16,7 +16,7 @@
 
         ///  get the playlists that the user is subscribed to
         $playlists = NULL;
-		if (!($stmt = $mysqli->prepare("SELECT playlist_id FROM playlist_subs WHERE user_id='$user'"))) {
+		if (!($stmt = $mysqli->prepare("SELECT subscribed_id FROM subedPlaylist WHERE user_id='$user'"))) {
 	        echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
@@ -39,7 +39,7 @@
             }
 
             // add the new subscription
-		    if (!($stmt = $mysqli->prepare("Insert into playlist_subs playlist_id values('$to_subscribe', '$user')"))) {
+		    if (!($stmt = $mysqli->prepare("Insert into subedPlaylist values('$user', '$to_subscribe')"))) {
 	    	    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		    }
 		    if (!$stmt->execute()) {
