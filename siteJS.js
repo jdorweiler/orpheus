@@ -121,7 +121,7 @@ $(document).ready(function() {
         playlist = getPlayLists();
         $('#playlistinfo').modal('show');
 
-    }
+    });
 
 
     // user info modal submit button
