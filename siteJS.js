@@ -116,9 +116,10 @@ $(document).ready(function() {
       $('#UDgenre').val(data.genre);
     });
 
-    $("playListButton").on('click', function(res){
+    $("#playListButton").on('click', function(res){
         // get the playlist info
         playlist = getPlayLists();
+        userPlayLists = getUsersPlaylists();
         $('#playlistinfo').modal('show');
 
     });
@@ -371,6 +372,25 @@ function getPlayLists(){
 
   return playlists;
 
+}
+
+/* 
+ *returns playlists for all users to show in modal
+ */
+function getUsersPlaylists(){
+   var playlists = '';
+  // get the users playlist info
+  $.ajax({
+    type: "POST",
+      url: 'getPlaylists.php',
+      dataType: "json",
+      success: function(res){
+        // update the playlits in the modal
+        console.log("update playlist modal");
+        playlists = res;
+      }
+  });
+  return playlists;
 }
 
 /*
