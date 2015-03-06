@@ -30,8 +30,6 @@
 
         $stmt->close();
 
-        echo  json_encode(array('users' => $users));
-
         foreach($users as $user){
             $playlist = NULL;
 
@@ -43,7 +41,7 @@
                 $playlist[] = $r;
             }
 
-            $playlists[$user[id]] = $playlist;
+            $playlists[$user['id']] = $playlist;
 
             $stmt->close();
         }
