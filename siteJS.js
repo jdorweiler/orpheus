@@ -372,12 +372,9 @@ function getPlayLists(){
       success: function(res){
         // update the playlits in the modal
         console.log("update playlist modal");
-        playlists = res;
+        return res;
       }
   });
-
-  return playlists;
-
 }
 
 /* 
@@ -393,10 +390,9 @@ function getUsersPlaylists(){
       success: function(res){
         // update the playlits in the modal
         console.log("update playlist modal");
-        playlists = res;
+        return res;
       }
   });
-  return playlists;
 }
 
 /*
