@@ -121,6 +121,12 @@ $(document).ready(function() {
         playlist = getPlayLists();
         userPlayLists = getUsersPlaylists();
         $('#playlistinfo').modal('show');
+        // build playlist table
+
+        for (var user in uerPlayLists){
+            var row = '<tr><td>' + user + '</td></tr>';
+            $('#playlist_table').append(row);
+        }
 
     });
 
