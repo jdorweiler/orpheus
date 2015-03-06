@@ -271,9 +271,7 @@
         <tr> <td> Playlists </td></tr>
         </table>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-success" id="signupModalButton" onclick="signup(
-              document.getElementById('name').value, document.getElementById('email').value, ;">
+          <button type="button" class="btn btn-default close_playlist_modal" data-dismiss="modal">Close</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

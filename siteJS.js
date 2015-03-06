@@ -123,6 +123,12 @@ $(document).ready(function() {
         $('#playlistinfo').modal('show');
     });
 
+    $('#close_playlist_modal').on('click', function(e){
+        e.preventDefault();
+        $('#playlist_table').empty();
+        $('#playlistinfo').hide();
+    });
+
 
     // user info modal submit button
     // send updated info to DB
