@@ -389,9 +389,10 @@ function getUsersPlaylists(){
 }
 
 function updateUserPlaylistTable(response){
-    for(var user in response){
+
+    for(var user in response['user_playlists']){
         console.log(user);
-        var row = '<tr><td>'+user'</td><tr>';
+        var row = '<tr><td>'+user+'</td><tr>';
         $('#playlist_table').append(row);
     }
 }
