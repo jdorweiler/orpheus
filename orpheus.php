@@ -267,11 +267,14 @@
   <div class="modal fade" id="playlistinfo" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+        <div class='modal-header'>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
         <table id="playlist_table">
         <tr> <td> Playlists </td></tr>
         </table>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default close_playlist_modal" data-dismiss="modal">Close</button>
+        <table id="subscribed_playlist"><tr><td>You are subscribed to</td></tr></table>    
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
