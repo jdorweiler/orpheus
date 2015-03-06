@@ -34,9 +34,8 @@
 
         foreach($users as $user){
             $playlist = NULL;
-            echo "user $user";
 
-            if (!($stmt = mysqli_query($mysqli,"SELECT id from users where id!='$user' LIMIT 5"))) {
+            if (!($stmt = mysqli_query($mysqli,"SELECT id from users where id!='$user[id]' LIMIT 5"))) {
                 echo "problem getting users";
             }
 
