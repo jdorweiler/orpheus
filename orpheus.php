@@ -267,6 +267,9 @@
   <div class="modal fade" id="playlistinfo" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+        <table class="playlist_table">
+        <tr> <td> Playlists </td></tr>
+        </table>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <input type="submit" class="btn btn-success" id="signupModalButton" onclick="signup(

@@ -21,7 +21,7 @@
 
         // get 5 or so users playlists to show on the frontend
         if (!($stmt = mysqli_query($mysqli,"SELECT id from users where id!='$id' LIMIT 5"))) {
-            echo "getting users";
+            echo "problem getting users";
         }
 
         while($r = mysqli_fetch_assoc($stmt)){
@@ -32,6 +32,23 @@
 
         echo  json_encode(array('users' => $users));
 
+        foreach($users as $user){
+            $playlist = NULL;
+
+            if (!($stmt = mysqli_query($mysqli,"SELECT id from users where id!='$id' LIMIT 5"))) {
+                echo "problem getting users";
+            }
+
+            while($r = mysqli_fetch_assoc($stmt)){
+                $playlist[] = $r;
+            }
+
+            $playlists[$user] = $playlist;
+
+            $stmt->close();
+        }
+
+        echo json_encode(array('user_playlists' => $playlists));
 
         $mysqli->close();
         exit();
