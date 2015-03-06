@@ -35,8 +35,8 @@
         foreach($users as $user){
             $playlist = NULL;
 
-            if (!($stmt = mysqli_query($mysqli,"SELECT id from users where id!='$user[id]' LIMIT 5"))) {
-                echo "problem getting users";
+            if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
+                echo "problem getting playlist for user";
             }
 
             while($r = mysqli_fetch_assoc($stmt)){
