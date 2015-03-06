@@ -118,16 +118,9 @@ $(document).ready(function() {
 
     $("#playListButton").on('click', function(res){
         // get the playlist info
-        playlist = getPlayLists();
-        userPlayLists = getUsersPlaylists();
+        getPlayLists();
+        getUsersPlaylists();
         $('#playlistinfo').modal('show');
-        // build playlist table
-
-        for (var user in uerPlayLists){
-            var row = '<tr><td>' + user + '</td></tr>';
-            $('#playlist_table').append(row);
-        }
-
     });
 
 
@@ -390,11 +383,18 @@ function getUsersPlaylists(){
       success: function(res){
         // update the playlits in the modal
         console.log("update playlist modal");
-        return res;
+        updateUserPlaylistTable(res);
       }
   });
 }
 
+function updateUserPlaylistTable(response){
+    for(var user in response){
+        console.log(user);
+        var row = '<tr><td>'+user'</td><tr>';
+        $('#playlist_table').append(row);
+    }
+}
 /*
 Called when a user click on album art.  Push
 the track data to the stack
