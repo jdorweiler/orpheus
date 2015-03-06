@@ -135,6 +135,12 @@ $(document).ready(function() {
       $("#userInfo").modal('hide');
     });
 
+    $("#playlist_modal").submit(function(e){
+      e.preventDefault();
+      $("#playlistinfo").modal('hide');
+      $('#playlist_table').empty();
+    });
+
     $("#signupForm").submit(function(e){
       e.preventDefault();
     });

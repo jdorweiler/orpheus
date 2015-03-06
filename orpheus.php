@@ -263,6 +263,7 @@
   <!-- /.modal -->
 </form>
 
+<form id="playlist_modal">
   <!-- user playlist Modal -->
   <div class="modal fade" id="playlistinfo" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
@@ -275,11 +276,12 @@
         </table>
         <div class="modal-footer">
         <table id="subscribed_playlist"><tr><td>You are subscribed to</td></tr></table>    
+          <input type="submit" class="btn btn-success">
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
    </div><!-- /.modal -->
-    
+</form>
 <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
