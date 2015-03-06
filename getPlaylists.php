@@ -33,7 +33,7 @@
         foreach($users as $user){
             $playlist = NULL;
 
-            if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
+            if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$user[id]'"))) {
                 echo "problem getting playlist for user";
             }
 
