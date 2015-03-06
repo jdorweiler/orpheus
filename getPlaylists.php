@@ -43,7 +43,7 @@
                 $playlist[] = $r;
             }
 
-            $playlists[$user] = $playlist;
+            $playlists[$user[id]] = $playlist;
 
             $stmt->close();
         }
