@@ -34,7 +34,7 @@
             $playlist = NULL;
 
             if (!($stmt = mysqli_query($mysqli,
-                "SELECT S.name, S.url, U.name from userPlaylist PL 
+                "SELECT S.name as song_title, S.url, U.name from userPlaylist PL 
                     inner join songs S on S.id = PL.song_id 
                     inner join users U on U.id=PL.user_id where PL.user_id='$user[id]'"))) 
             {
