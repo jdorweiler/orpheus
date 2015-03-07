@@ -402,7 +402,7 @@ function updateUserPlaylistTable(response){
         var row = '<tr><td id='+user+'>'+user+'</td>';
         for( var song in user ){
             
-            if(response['user_playlists'][user][song].url)
+            if(response['user_playlists'][user][song])
                 row += '<td> -'+response['user_playlists'][user][song].url+'</td>';
         }
         row += "</tr>";
