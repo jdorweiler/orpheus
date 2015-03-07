@@ -43,9 +43,10 @@
 
             while($r = mysqli_fetch_assoc($stmt)){
                 $playlist[] = $r;
+                $username = $r['name'];
             }
 
-            $playlists[$user['id']] = $playlist;
+            $playlists[$username] = $playlist;
 
             $stmt->close();
         }

@@ -396,6 +396,7 @@ function getUsersPlaylists(){
 function updateUserPlaylistTable(response){
 
     for(var user in response['user_playlists']){
+        console.log(user);
         var row = '<tr><td id='+user[0].name+'>'+user[0].name+'</td>';
         for( var song in user ){
             console.log(song);
