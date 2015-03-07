@@ -398,9 +398,9 @@ function updateUserPlaylistTable(response){
     for(var user in response['user_playlists']){
         var row = '<tr><td id='+user[0].name+'>'+user[0].name+'</td>';
         for( var song in user ){
-            row .= '<td> -'+song.name+'</td>';
+            row += '<td> -'+song.name+'</td>';
         }
-        row .= "</tr>";
+        row += "</tr>";
 
         $('#playlist_table').append(row);
     }
