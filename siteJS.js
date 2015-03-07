@@ -396,11 +396,16 @@ function getUsersPlaylists(){
 function updateUserPlaylistTable(response){
 
     for(var user in response['user_playlists']){
-        console.log(user);
-        var row = '<tr><td>'+user+'</td><tr>';
+        var row = '<tr><td id='+user[0].name+'>'+user[0].name+'</td>';
+        for( var song in user ){
+            row .= '<td> -'+song.name+'</td>';
+        }
+        row .= "</tr>";
+
         $('#playlist_table').append(row);
     }
 }
+
 /*
 Called when a user click on album art.  Push
 the track data to the stack
