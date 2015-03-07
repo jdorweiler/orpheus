@@ -396,14 +396,14 @@ function getUsersPlaylists(){
 function updateUserPlaylistTable(response){
 
     for(var user in response['user_playlists']){
-        console.log(user);
         if(response['user_playlists'][user] == null){
             continue;
         }
         var row = '<tr><td id='+user+'>'+user+'</td>';
         for( var song in user ){
-            console.log(song);
-            row += '<td> -'+response['user_playlists'][user][song].url+'</td>';
+            
+            if(response['user_playlists'][user][song].url)
+                row += '<td> -'+response['user_playlists'][user][song].url+'</td>';
         }
         row += "</tr>";
 
