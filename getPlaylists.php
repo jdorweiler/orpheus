@@ -42,6 +42,7 @@
             }
 
             while($r = mysqli_fetch_assoc($stmt)){
+                echo var_dump $r
                 $playlist[] = $r;
                 $username = $r['name'];
             }
