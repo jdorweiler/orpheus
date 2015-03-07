@@ -47,6 +47,7 @@
             }
 
             $playlists[$username] = $playlist;
+            echo $playlist;
 
             $stmt->close();
         }
