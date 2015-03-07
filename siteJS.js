@@ -403,9 +403,14 @@ function updateUserPlaylistTable(response){
         for( var song in user ){
             
             if(response['user_playlists'][user][song])
-                row += '<td> -'+response['user_playlists'][user][song].url+'</td>';
+                row += '<td> -'+response['user_playlists'][user][song].song_title+' </td>';
+
+            // only showing first 3 songs
+            if(song > 3 )
+                break;
         }
         row += "</tr>";
+
 
         $('#playlist_table').append(row);
     }
