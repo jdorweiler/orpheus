@@ -397,6 +397,9 @@ function updateUserPlaylistTable(response){
 
     for(var user in response['user_playlists']){
         console.log(user);
+        if(! response['user_playlists'].user){
+            continue;
+        }
         var row = '<tr><td id='+user+'>'+user+'</td>';
         for( var song in user ){
             console.log(song);
