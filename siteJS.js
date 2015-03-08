@@ -406,6 +406,8 @@ function updateUserPlaylistTable(response){
         $('#playlist_table').append(row);
         // get the clicked user to subscribe to
             
+        $("#user--"+name).data({ user: name });
+        
         $("#user--"+name).on('click', function(){
             console.log($(this).data());
         });
