@@ -101,7 +101,7 @@ $(document).ready(function() {
     });
 
     // get the clicked user to subscribe to
-    $("[id^='+user--']").on('click'. function(){
+    $("[id^='user--']").on('click'. function(){
         console.log($(this).data());
     }
 
@@ -406,7 +406,7 @@ function updateUserPlaylistTable(response){
         }
         name = response['users'][user];
         
-        var row = '<tr><td id=+user--'+name+'>'+name+'</td></tr>';
+        var row = '<tr><td id="user--'+name+'">'+name+'</td></tr>';
         $('#playlist_table').append(row);
     }
 }
