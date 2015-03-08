@@ -25,37 +25,12 @@
         }
 
         while($r = mysqli_fetch_assoc($stmt)){
-            array_push($users, $r['id']);
+            array_push($users, $r['name']);
         }
-
-        echo print_r($users);
 
         $stmt->close();
 
-        foreach($users as $user){
-            $playlist = NULL;
-
-            $u = $user['id'];
-
-            if (!($stmt = mysqli_query($mysqli,
-                "SELECT S.name as song_title, S.url, U.name from userPlaylist PL 
-                    inner join songs S on S.id = PL.song_id 
-                    inner join users U on U.id=PL.user_id where PL.user_id='$u'"))) 
-            {
-                echo "problem getting playlist for user";
-            }
-
-            while($r = mysqli_fetch_array($stmt)){
-                $playlist[] = array("song_title" => $r['song_title']);
-                $username = $r['name'];
-            }
-
-            $playlists[$username] = $playlist;
-
-            $stmt->close();
-        }
-
-        echo json_encode(array('user_playlists' => $playlists));
+        echo json_encode(array('users' => $users));
 
         $mysqli->close();
         exit();
