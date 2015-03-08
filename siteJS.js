@@ -100,6 +100,11 @@ $(document).ready(function() {
       updateSideBar();
     });
 
+    // get the clicked user to subscribe to
+    $("[id^='+user--']").on('click'. function(){
+        console.log($(this).data());
+    }
+
     // album artwork clicks
     $("[id^='playlist']").on('click', function(){
       data = $(this).data();
