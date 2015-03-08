@@ -399,19 +399,7 @@ function updateUserPlaylistTable(response){
         if(response['user_playlists'][user] == null){
             continue;
         }
-        var row = '<tr><td id='+user+'>'+user+'</td>';
-        for( var song in user ){
-            
-            if(response['user_playlists'][user][song])
-                row += '<td> -'+response['user_playlists'][user][song].song_title+' </td>';
-
-            // only showing first 3 songs
-            if(song > 3 )
-                break;
-        }
-        row += "</tr>";
-
-
+        var row = '<tr><td id='+user+'>'+user+'</td></tr>';
         $('#playlist_table').append(row);
     }
 }
