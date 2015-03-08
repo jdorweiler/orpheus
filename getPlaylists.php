@@ -25,8 +25,10 @@
         }
 
         while($r = mysqli_fetch_assoc($stmt)){
-            $users[] = $r;
+            $users[] = array( 'users' => $r['id']);
         }
+
+        echo print_r($users);
 
         $stmt->close();
 
