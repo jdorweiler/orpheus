@@ -399,6 +399,8 @@ function updateUserPlaylistTable(response){
         if(response['users'][user] == null){
             continue;
         }
+        name = response['users'][user];
+        
         var row = '<tr><td id='+user+'>'+user+'</td></tr>';
         $('#playlist_table').append(row);
     }
