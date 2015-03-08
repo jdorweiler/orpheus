@@ -16,7 +16,7 @@
         $id = $_SESSION["username"];
 
         ///  get the playlists that the user is subscribed to
-        $playlists = NULL;
+        $playlists = array();
         $users = array();
 
         // get 5 or so users playlists to show on the frontend
@@ -42,7 +42,6 @@
             }
 
             while($r = mysqli_fetch_assoc($stmt)){
-                echo var_dump $r
                 $playlist[] = $r;
                 $username = $r['name'];
             }
