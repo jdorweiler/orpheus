@@ -20,7 +20,7 @@
         $users = array();
 
         // get 5 or so users playlists to show on the frontend
-        if (!($stmt = mysqli_query($mysqli,"SELECT id from users where id!='$id' LIMIT 5"))) {
+        if (!($stmt = mysqli_query($mysqli,"SELECT id, name from users where id!='$id' LIMIT 5"))) {
             echo "problem getting users";
         }
 
