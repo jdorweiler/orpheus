@@ -100,10 +100,6 @@ $(document).ready(function() {
       updateSideBar();
     });
 
-    // get the clicked user to subscribe to
-    $("[id^='user--']").on('click'. function(){
-        console.log($(this).data());
-    }
 
     // album artwork clicks
     $("[id^='playlist']").on('click', function(){
@@ -408,6 +404,11 @@ function updateUserPlaylistTable(response){
         
         var row = '<tr><td id="user--'+name+'">'+name+'</td></tr>';
         $('#playlist_table').append(row);
+        // get the clicked user to subscribe to
+            
+        $("#user--"+name).on('click'. function(){
+            console.log($(this).data());
+        }
     }
 }
 
