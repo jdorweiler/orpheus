@@ -401,7 +401,7 @@ function updateUserPlaylistTable(response){
         }
         name = response['users'][user];
         
-        var row = '<tr><td id='+user--name+'>'+name+'</td></tr>';
+        var row = '<tr><td id=+user--'+name+'>'+name+'</td></tr>';
         $('#playlist_table').append(row);
     }
 }
