@@ -25,7 +25,7 @@
         }
 
         while($r = mysqli_fetch_assoc($stmt)){
-            array_push($users, $r);
+            array_push($users, $r['id']);
         }
 
         echo print_r($users);
@@ -45,8 +45,8 @@
                 echo "problem getting playlist for user";
             }
 
-            while($r = mysqli_fetch_assoc($stmt)){
-                $playlist[] = $r;
+            while($r = mysqli_fetch_array($stmt)){
+                $playlist[] = array("song_title" => $r['song_title']);
                 $username = $r['name'];
             }
 
