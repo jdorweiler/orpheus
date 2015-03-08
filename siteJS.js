@@ -402,13 +402,13 @@ function updateUserPlaylistTable(response){
         }
         name = response['users'][user];
         
-        var row = '<tr><td id="user--'+name+'">'+name+'</td></tr>';
+        var row = '<tr><td><a href="#" id="user--'+name+'"> '+name+' </a></td></tr>';
         $('#playlist_table').append(row);
         // get the clicked user to subscribe to
             
-        $("#user--"+name).on('click'. function(){
+        $("#user--"+name).on('click', function(){
             console.log($(this).data());
-        }
+        });
     }
 }
 
