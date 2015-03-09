@@ -366,7 +366,6 @@ function getPlayLists(){
   // get the users playlist info
   $.ajax({
     type: "POST",
-      data: data
       url: 'sharePlaylist.php',
       dataType: "json",
       success: function(res){
@@ -417,7 +416,10 @@ function updateUserPlaylistTable(response){
 
 // add a subscription to the users database
 function subscribeToPlaylist(data){
-  $.ajax({
+    console.log("subscribing to playlist");
+    console.log(data);
+
+    $.ajax({
     type: "POST",
       data: data,
       url: 'sharePlaylist.php',
