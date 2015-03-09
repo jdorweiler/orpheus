@@ -366,6 +366,7 @@ function getPlayLists(){
   // get the users playlist info
   $.ajax({
     type: "POST",
+      data: data
       url: 'sharePlaylist.php',
       dataType: "json",
       success: function(res){
@@ -387,8 +388,6 @@ function getUsersPlaylists(){
       url: 'getPlaylists.php',
       dataType: "json",
       success: function(res){
-        // update the playlits in the modal
-        console.log("update playlist modal");
         updateUserPlaylistTable(res);
       }
   });
@@ -409,9 +408,24 @@ function updateUserPlaylistTable(response){
         $("#user--"+name).data({ user: name });
         
         $("#user--"+name).on('click', function(){
-            console.log($(this).data());
+            data = $(this).data();
+            console.log("data"+data);
+            subscribeToPlaylist({"type":"subscribe", "toSub": "user"});
         });
     }
+}
+
+// add a subscription to the users database
+function subscribeToPlaylist(data){
+  $.ajax({
+    type: "POST",
+      data: data,
+      url: 'sharePlaylist.php',
+      dataType: "json",
+      success: function(res){
+          console.log("Success!!");
+      }
+  });
 }
 
 /*
