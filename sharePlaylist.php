@@ -43,7 +43,7 @@
             $stmt->close();
 
             echo "User: $user";
-            echo "subscribe to: $subscribe_to_ia";
+            echo "subscribe to: $subscribe_to_id";
 
             if(!$subscribe_to_id){
                 $mysqli->close();
@@ -52,7 +52,7 @@
 
             $exists = NULL;
 
-		    if (!($stmt = $mysqli->prepare("select subscribed_id from subedPlaylist where subscribed_id=$user' and subed_user_id='$subscribe_to_id'"))) {
+		    if (!($stmt = $mysqli->prepare("select subscribed_id from subedPlaylist where subscribed_id='$user' and subed_user_id='$subscribe_to_id'"))) {
 	    	    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		    }
 		    if (!$stmt->execute()) {
