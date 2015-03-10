@@ -401,8 +401,7 @@ function getUserSubscriptions(){
   // get the users playlist info
   $.ajax({
     type: "POST",
-    data: {"type":"getSub", "toSub": null},
-    url: 'sharePlaylist.php',
+    url: 'getSubscriptions.php',
     dataType: "json",
     success: function(res){
       updateSubscriptionsTable(res);
