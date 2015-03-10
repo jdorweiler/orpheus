@@ -47,6 +47,8 @@
         // subscribe the user to a new playlist
         if( strcmp($type, "subscribe") == 0){
             echo "got subscribe";
+            echo $to_subscribe;
+
             $subscribe_to_id = NULL;
 
             // get the user's id (the one to subscribe to)

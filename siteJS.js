@@ -409,7 +409,7 @@ function updateUserPlaylistTable(response){
         $("#user--"+name).on('click', function(){
             data = $(this).data();
             console.log("data"+data);
-            subscribeToPlaylist({"type":"subscribe", "toSub": "user"});
+            subscribeToPlaylist({"type":"subscribe", "toSub": data.user});
         });
     }
 }
