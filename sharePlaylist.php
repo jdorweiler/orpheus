@@ -74,7 +74,7 @@
         } 
         else {
             // just getting the playlists, nothing to add
-            get_user_playlists($to_subscribe);
+            get_user_playlists($user);
             exit();
         }
     }

@@ -121,6 +121,7 @@ $(document).ready(function() {
         // get the playlist info
         getPlayLists();
         getUsersPlaylists();
+        getUserSubscriptions();
         $('#playlistinfo').modal('show');
     });
 
@@ -392,6 +393,22 @@ function getUsersPlaylists(){
   });
 }
 
+/* 
+ *returns playlists for all users to show in modal
+ */
+function getUserSubscriptions(){
+  // get the users playlist info
+  $.ajax({
+    type: "POST",
+    url: 'sharePlaylist.php',
+    dataType: "json",
+    success: function(res){
+      updateSubscriptionTable(res);
+    }
+  });
+}
+
+
 function updateUserPlaylistTable(response){
 
     for(var user in response['users']){
@@ -426,6 +443,42 @@ function subscribeToPlaylist(data){
       dataType: "json",
       success: function(res){
           console.log("Success!!");
+      }
+  });
+}
+
+function updateSubscriptionsTable(response){
+
+    for(var user in response['users']){
+        if(response['users'][user] == null){
+            continue;
+        }
+        name = response['users'][user];
+        
+        var row = '<tr><td><a href="#" id="user--'+name+'"> '+name+' </a></td></tr>';
+        $('#subscribed_playlist').append(row);
+            
+        $("#userSub--"+name).data({ user: name });
+        
+        $("#userSub--"+name).on('click', function(){
+            data = $(this).data();
+            console.log("data"+data);
+            deleteSubscription({"type":"subscribe", "toSub": data.user});
+        });
+    }
+}
+
+// add a subscription to the users database
+function deleteSubscripton(data){
+    console.log("deleting subscription");
+    console.log(data);
+    $.ajax({
+    type: "POST",
+      data: data,
+      url: 'deleteSubscription.php',
+      dataType: "json",
+      success: function(res){
+          console.log("Success!! deleting");
       }
   });
 }
