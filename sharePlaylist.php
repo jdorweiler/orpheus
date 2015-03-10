@@ -50,6 +50,23 @@
                 exit();
             }
 
+            $exists = NULL;
+
+		    if (!($stmt = $mysqli->prepare("select subscribed_id from subedPlaylist where subscribed_id=$user' and subed_user_id='$subscribe_to_id'"))) {
+	    	    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		    }
+		    if (!$stmt->execute()) {
+	    	    echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		    }
+            $stmt->bind_result($subscribe_to_id);
+		    $stmt->fetch();
+            $mysqli->close();
+
+            if($exists){
+                $mysqli->close();
+                exit();
+            }
+        
             // add the new subscription
 		    if (!($stmt = $mysqli->prepare("Insert into subedPlaylist values('$user', '$subscribe_to_id')"))) {
 	    	    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
@@ -63,6 +80,5 @@
         
         } 
     }
-
 
 ?>
