@@ -368,6 +368,7 @@ function getPlayLists(){
   // get the users playlist info
   $.ajax({
     type: "POST",
+      data: {"type":"getPlaylists", "user":"user"},
       url: 'sharePlaylist.php',
       dataType: "json",
       success: function(res){
