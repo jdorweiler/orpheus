@@ -42,7 +42,6 @@
 	    	echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 		}
 		$stmt->fetch();
-        $mysqli->close();
         
         // subscribe the user to a new playlist
         if( strcmp($type, "subscribe") == 0){
@@ -60,15 +59,6 @@
             $stmt->bind_result($subscribe_to_id);
             $stmt->fetch();
             $stmt->close();
-
-            // loop through the playlists and bail if we see
-            // the same subscription
-            foreach($playlists as $playlist){
-                if( strcmp($playlists, $subscribed_to_user) == 0){
-                    $mysqli->close();
-                    exit();
-                }
-            }
 
             // add the new subscription
 		    if (!($stmt = $mysqli->prepare("Insert into subedPlaylist values('$user', '$to_subscribe')"))) {
