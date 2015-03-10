@@ -58,7 +58,7 @@
 		    if (!$stmt->execute()) {
 	    	    echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		    }
-            $stmt->bind_result($subscribe_to_id);
+            $stmt->bind_result($exists);
             $stmt->fetch();
             $stmt->close();
 
