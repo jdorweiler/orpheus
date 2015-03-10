@@ -139,8 +139,8 @@ $(document).ready(function() {
 
     $("#playlist_modal").submit(function(e){
       e.preventDefault();
-      $('#playlist_table').empty();
-      $('#subscribed_playlist').empty();
+      $('.pl_entry').empty();
+      $('.sub_entry').empty();
       $("#playlistinfo").modal('hide');
     });
 
@@ -419,7 +419,7 @@ function updateUserPlaylistTable(response){
         }
         name = response['users'][user];
         
-        var row = '<tr><td><a href="#" id="user--'+name+'"> '+name+' </a></td></tr>';
+        var row = '<tr><td><a href="#" class="pl_entry" id="user--'+name+'"> '+name+' </a></td></tr>';
         $('#playlist_table').append(row);
         // get the clicked user to subscribe to
             
@@ -452,7 +452,7 @@ console.log(response);
         name = response.subscriptions[sub].name;
 
         console.log("name"+name);
-        var row = '<tr><td><a href="#" id="usersub--'+name+'"> '+name+' </a></td></tr>';
+        var row = '<tr><td><a href="#" class="sub_entry" id="usersub--'+name+'"> '+name+' </a></td></tr>';
         $('#subscribed_playlist').append(row);
             
         $("#usersub--"+name).data({ user: name });
