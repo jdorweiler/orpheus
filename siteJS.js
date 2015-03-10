@@ -139,9 +139,9 @@ $(document).ready(function() {
 
     $("#playlist_modal").submit(function(e){
       e.preventDefault();
-      $("#playlistinfo").modal('hide');
       $('#playlist_table').empty();
       $('#subscribed_playlist').empty();
+      $("#playlistinfo").modal('hide');
     });
 
     $("#signupForm").submit(function(e){
@@ -446,13 +446,13 @@ function subscribeToPlaylist(data){
 }
 
 function updateSubscriptionsTable(response){
-
+console.log(response);
     for(var user in response){
         if(response[user] == null){
             continue;
         }
         name = response[user].name;
-        
+        console.log("name"+name);
         var row = '<tr><td><a href="#" id="user--'+name+'"> '+name+' </a></td></tr>';
         $('#subscribed_playlist').append(row);
             
