@@ -141,6 +141,7 @@ $(document).ready(function() {
       e.preventDefault();
       $("#playlistinfo").modal('hide');
       $('#playlist_table').empty();
+      $('#subscribed_playlist').empty();
     });
 
     $("#signupForm").submit(function(e){
@@ -403,7 +404,7 @@ function getUserSubscriptions(){
     url: 'sharePlaylist.php',
     dataType: "json",
     success: function(res){
-      updateSubscriptionTable(res);
+      updateSubscriptionsTable(res);
     }
   });
 }
