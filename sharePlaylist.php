@@ -6,17 +6,19 @@
     // return the playlist for a user
     function get_user_playlists( $id ) {
         echo "getting users playlist subscriptions";
-
+        $subscriptions = array();
         $rows = array();
 
-        if (!($stmt = mysqli_query($mysqli,"SELECT S.name, S.url from userPlaylist PL inner join songs S on S.id = PL.song_id where PL.user_id='$id'"))) {
-            echo "gettting user playlist failed";
+        if (!($stmt = mysqli_query($mysqli,"select U.name from users U inner join
+            (SELECT sP.subscribed_id from subedPlaylist where subed_user_id='$id') as T1 
+            U.id = T1.subscribed_id"))) {
+            echo "gettting user subscriptions failed";
         }
 
         while($r = mysqli_fetch_asssoc($stmt)){
             $rows[] = $r;
         }
-        echo $playlist = json_encode(array('playlist' => $playlist));
+        echo $playlist = json_encode(array('subscriptions' => $subscriptions));
     }
 
 
