@@ -24,6 +24,9 @@
         $stmt->fetch();
         $stmt->close();
 
+        echo "user: $user";
+        echo "removing: $subscribe_to_id";
+
         // add the new subscription
 		if (!($stmt = $mysqli->prepare("Delete from subedPlaylist where subscribed_id=$subscribe_to_id and subed_user_id=$user"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
