@@ -23,7 +23,7 @@
           echo "gettting user subscriptions failed";
         }
         
-        while($r = mysqli_fetch_asssoc($stmt)){
+        while($r = mysqli_fetch_array($stmt)){
             $rows[] = $r;
         }
 
