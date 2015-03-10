@@ -41,7 +41,8 @@
 		if (!$stmt->bind_result($playlists)) {
 	    	echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 		}
-		$stmt->fetch();
+        $stmt->fetch();
+        $stmt->close();
         
         // subscribe the user to a new playlist
         if( strcmp($type, "subscribe") == 0){
@@ -51,7 +52,6 @@
             $subscribe_to_id = NULL;
 
             // get the user's id (the one to subscribe to)
-
             if (!($stmt = $mysqli->prepare("select id from users where name='$to_subscribe'"))) {
                 echo "gettting user id failed";
             }
