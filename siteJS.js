@@ -139,8 +139,8 @@ $(document).ready(function() {
 
     $("#playlist_modal").submit(function(e){
       e.preventDefault();
-      $('id^=user--').empty();
-      $('id^=userSub--').empty();
+      $('#playlist_table').empty();
+      $('#subscribed_playlist').empty();
       $("#playlistinfo").modal('hide');
     });
 

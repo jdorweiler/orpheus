@@ -30,8 +30,6 @@
         
         // subscribe the user to a new playlist
         if( strcmp($type, "subscribe") == 0){
-            echo "got subscribe";
-            echo $to_subscribe;
 
             $subscribe_to_id = NULL;
 
@@ -43,6 +41,11 @@
             $stmt->bind_result($subscribe_to_id);
             $stmt->fetch();
             $stmt->close();
+
+            if(!$subscribe_to_id){
+                $mysqli->close();
+                exit();
+            }
 
             // add the new subscription
 		    if (!($stmt = $mysqli->prepare("Insert into subedPlaylist values('$user', '$subscribe_to_id')"))) {
