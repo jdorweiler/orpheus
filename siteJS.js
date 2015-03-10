@@ -447,11 +447,11 @@ function subscribeToPlaylist(data){
 
 function updateSubscriptionsTable(response){
 
-    for(var user in response['users']){
-        if(response['users'][user] == null){
+    for(var user in response){
+        if(response[user] == null){
             continue;
         }
-        name = response['users'][user];
+        name = response[user].name;
         
         var row = '<tr><td><a href="#" id="user--'+name+'"> '+name+' </a></td></tr>';
         $('#subscribed_playlist').append(row);
