@@ -10,9 +10,9 @@
     } 
 
 	if($_SERVER['REQUEST_METHOD'] == "POST"){
-		$type = $_POST['type'];
+		$type = $_POST['type'] || NULL;
         $user = $_SESSION["username"];
-        $to_subscribe = $_POST['toSub'];
+        $to_subscribe = $_POST['toSub'] || NULL;
 
         ///  get the playlists that the user is subscribed to
         $playlists = NULL;
