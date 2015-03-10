@@ -61,14 +61,11 @@
             $stmt->close();
 
             // add the new subscription
-		    if (!($stmt = $mysqli->prepare("Insert into subedPlaylist values('$user', '$to_subscribe')"))) {
+		    if (!($stmt = $mysqli->prepare("Insert into subedPlaylist values('$user', '$subscribe_to_id')"))) {
 	    	    echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		    }
 		    if (!$stmt->execute()) {
 	    	    echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
-		    }
-		    if (!$stmt->bind_result($playlists)) {
-	    	    echo "Binding output parameters failed: (" . $stmt->errno . ") " . $stmt->error;
 		    }
 		    $stmt->fetch();
             $mysqli->close();
