@@ -3,25 +3,6 @@
 	ini_set('display_errors', 'On');
 	include 'password.php';
 
-    // return the playlist for a user
-    function get_user_playlists( $id ) {
-        echo "getting users playlist subscriptions";
-        $subscriptions = array();
-        $rows = array();
-
-        if (!($stmt = mysqli_query($mysqli,"select U.name from users U inner join
-            (SELECT sP.subscribed_id from subedPlaylist where subed_user_id='$id') as T1 
-            U.id = T1.subscribed_id"))) {
-            echo "gettting user subscriptions failed";
-        }
-
-        while($r = mysqli_fetch_asssoc($stmt)){
-            $rows[] = $r;
-        }
-        echo $playlist = json_encode(array('subscriptions' => $subscriptions));
-    }
-
-
 	// open the database
 	$mysqli = new mysqli("oniddb.cws.oregonstate.edu", "dorweilj-db", $myPWD, "dorweilj-db");
 	if($mysqli->connect_errno){
@@ -75,11 +56,6 @@
             exit();
         
         } 
-        else {
-            // just getting the playlists, nothing to add
-            get_user_playlists($user);
-            exit();
-        }
     }
 
 
