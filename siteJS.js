@@ -139,7 +139,8 @@ $(document).ready(function() {
 
     $("#playlist_modal").submit(function(e){
       e.preventDefault();
-      $('#playlistinfo').empty();
+      $('#playlist_table').empty();
+      $('#subscribed_playlist').empty();
       $("#playlistinfo").modal('hide');
     });
 
@@ -446,9 +447,9 @@ function subscribeToPlaylist(data){
 
 function updateSubscriptionsTable(response){
 console.log(response);
-    for(var sub in response[subscriptions]){
+    for(var sub in response.subscriptions){
 
-        name = response[subscriptions][name];
+        name = response.subscriptions[sub].name;
 
         console.log("name"+name);
         var row = '<tr><td><a href="#" id="user--'+name+'"> '+name+' </a></td></tr>';
