@@ -17,9 +17,11 @@
         $subscriptions = array();
         $rows = array();
         
-        if (!($stmt = mysqli_query($mysqli,"select U.name from users U inner join
-            (SELECT sP.subscribed_id from subedPlaylist where subed_user_id='$id') as T1 
-            U.id = T1.subscribed_id"))) {
+        if (!($stmt = mysqli_query($mysqli,"select U.name from users U 
+            inner join 
+            (SELECT sP.subscribed_id from subedPlaylist sP where subed_user_id='$id') as T1 
+            on U.id = T1.subscribed_id"))) 
+        {
           echo "gettting user subscriptions failed";
         }
         
