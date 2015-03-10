@@ -10,9 +10,9 @@
     } 
 
 	if($_SERVER['REQUEST_METHOD'] == "POST"){
-		$type = $_POST['type'] || NULL;
+		$type = $_POST['type'];
         $user = $_SESSION["username"];
-        $to_subscribe = $_POST['toSub'] || NULL;
+        $to_subscribe = $_POST['toSub'];
 
         ///  get the playlists that the user is subscribed to
         $playlists = NULL;
@@ -41,6 +41,9 @@
             $stmt->bind_result($subscribe_to_id);
             $stmt->fetch();
             $stmt->close();
+
+            echo "User: $user";
+            echo "subscribe to: $subscribe_to_ia";
 
             if(!$subscribe_to_id){
                 $mysqli->close();
