@@ -5,6 +5,7 @@
 
     // return the playlist for a user
     function get_user_playlists( $id ) {
+        echo "getting users playlist subscriptions";
 
         $rows = array();
 
