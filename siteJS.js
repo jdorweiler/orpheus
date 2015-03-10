@@ -139,8 +139,9 @@ $(document).ready(function() {
 
     $("#playlist_modal").submit(function(e){
       e.preventDefault();
-      $('#playlist_table').empty();
-      $('#subscribed_playlist').empty();
+[id^='playlist']
+      $('id^=user--').empty();
+      $('id^=userSub--').empty();
       $("#playlistinfo").modal('hide');
     });
 
@@ -452,7 +453,7 @@ console.log(response);
         name = response.subscriptions[sub].name;
 
         console.log("name"+name);
-        var row = '<tr><td><a href="#" id="user--'+name+'"> '+name+' </a></td></tr>';
+        var row = '<tr><td><a href="#" id="usersub--'+name+'"> '+name+' </a></td></tr>';
         $('#subscribed_playlist').append(row);
             
         $("#userSub--"+name).data({ user: name });
