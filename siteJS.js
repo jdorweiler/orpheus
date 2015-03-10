@@ -466,7 +466,7 @@ console.log(response);
 }
 
 // add a subscription to the users database
-function deleteSubscripton(data){
+function deleteSubscription(data){
     console.log("deleting subscription");
     console.log(data);
     $.ajax({
