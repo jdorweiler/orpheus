@@ -425,7 +425,7 @@ function updateUserPlaylistTable(response){
             
         $("#user--"+name).data({ user: name });
         
-        $("#user--"+name).on('click', function(){
+        $("#user--"+name).on('click', 'pl_entry', function(){
             data = $(this).data();
             console.log("data"+data);
             subscribeToPlaylist({"type":"subscribe", "toSub": data.user});
@@ -457,7 +457,7 @@ console.log(response);
             
         $("#usersub--"+name).data({ user: name });
         
-        $("#usersub--"+name).on('click', function(){
+        $("#usersub--"+name).on('click', '.sub_entry', function(){
             data = $(this).data();
             console.log("data"+data);
             deleteSubscription({"type":"subscribe", "toSub": data.user});
