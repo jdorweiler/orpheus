@@ -10,7 +10,7 @@
     } 
 
 	if($_SERVER['REQUEST_METHOD'] == "POST"){
-        $user = $_SESSION["username"];
+        $id = $_SESSION["username"];
         $users = NULL;
         
         echo "getting users playlist subscriptions";
