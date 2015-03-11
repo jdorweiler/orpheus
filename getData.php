@@ -132,7 +132,13 @@
 
     // push updated playlist to user_playlist
 	if($type == 3){
-        	$id = $_SESSION["username"];
+        $id = $_SESSION["username"];
+        
+        if(!$id){
+            $mysqli->close();
+            exit();
+        }
+
         	echo "updating playlist for user: $id";
 
         	// play list is a json string of songs containing the users current playlist 
