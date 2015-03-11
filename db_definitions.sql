@@ -1,4 +1,3 @@
--- make users table
 
 CREATE TABLE users (
   id INT AUTO_INCREMENT,
@@ -6,11 +5,11 @@ CREATE TABLE users (
   location VARCHAR(255) NOT NULL,
   genre VARCHAR(255) NOT NULL,
   email TEXT, 
-  pass TEXT
+  pass TEXT,
   PRIMARY KEY  (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- create songs
+
 CREATE TABLE songs(
   id INT AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
@@ -19,7 +18,7 @@ CREATE TABLE songs(
   CONSTRAINT unique(name, url)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- user playlist
+
 CREATE TABLE userPlaylist (
   user_id INT,
   song_id INT,
@@ -27,10 +26,10 @@ CREATE TABLE userPlaylist (
   CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE RESTRICT ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- subscribed playlists
+
 CREATE TABLE subedPlaylist (
-  user_id INT,
+  subed_user_id INT,
   subscribed_id INT,
   CONSTRAINT fk_subscribed_id FOREIGN KEY (subscribed_id) REFERENCES users (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT fk_subed_user_id FOREIGN KEY (subed_user_id) REFERENCES users (id) ON DELETE RESTRICT ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
