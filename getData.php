@@ -117,7 +117,7 @@
 		echo json_encode(array( 'user' => $user, 'email' => $email, 'location' => $location, 'genre' => $genre));
 
         // get the id for the new user 
-        if (!($mysqli->query("SELECT id from users where name=$user"))) {
+        if (!($mysqli->query("SELECT id from users where name='$user'"))) {
             echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
         }
 
@@ -151,7 +151,7 @@
 		    $title = $song["name"];
             $url = $song["url"];
 
-            if( strcmp($title, '') ){
+            if( strcmp($title, '') == 0 ){
                 continue;
             }
             
