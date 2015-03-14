@@ -1,4 +1,5 @@
 <?php
+// handles user login/logout, new user signup and playlist update
 	session_start();
 	ini_set('display_errors', 'On');
 	include 'password.php';

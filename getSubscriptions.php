@@ -1,4 +1,5 @@
 <?php
+// get the playlist subscripitons for a user
 	session_start();
 	ini_set('display_errors', 'On');
 	include 'password.php';

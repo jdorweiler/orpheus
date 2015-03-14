@@ -1,4 +1,5 @@
 <?php
+// handles adding user playlist subscriptions
 	session_start();
 	ini_set('display_errors', 'On');
 	include 'password.php';
